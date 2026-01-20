@@ -1,6 +1,13 @@
 import Header from "@/components/Header";
 import BlogPost from "@/components/BlogPost";
 import { FileText, Zap, Shield, CheckCircle } from "lucide-react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "How to Reduce PDF File Size for Free | Compressnfly",
+  description:
+    "Learn how to compress large PDF files online for free. Step-by-step guide to reducing PDF size without losing quality.",
+};
 
 const PDFCompressionGuide = () => {
   const blogContent = (

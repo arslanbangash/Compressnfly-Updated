@@ -1,6 +1,0 @@
-1:"$Sreact.fragment"
-2:I[22016,["/_next/static/chunks/b6040edc36a5a27e.js","/_next/static/chunks/694836347d1e5ef3.js","/_next/static/chunks/55a7e54de9f838d6.js","/_next/static/chunks/ccd629b97fa6510c.js","/_next/static/chunks/6a2caca0bf134dad.js"],""]
-3:I[97367,["/_next/static/chunks/b6040edc36a5a27e.js","/_next/static/chunks/694836347d1e5ef3.js","/_next/static/chunks/55a7e54de9f838d6.js","/_next/static/chunks/ccd629b97fa6510c.js"],"OutletBoundary"]
-4:"$Sreact.suspense"
-0:{"buildId":"X-WbQTsRIVGNmxVdnNG3N","rsc":["$","$1","c",{"children":[["$","div",null,{"className":"flex min-h-screen items-center justify-center bg-gray-100","children":["$","div",null,{"className":"text-center","children":[["$","h1",null,{"className":"mb-4 text-4xl font-bold","children":"404"}],["$","p",null,{"className":"mb-4 text-xl text-gray-600","children":"Oops! Page not found"}],["$","$L2",null,{"href":"/","className":"text-blue-500 underline hover:text-blue-700","children":"Return to Home"}]]}]}],[["$","script","script-0",{"src":"/_next/static/chunks/6a2caca0bf134dad.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"loading":null,"isPartial":false}
-5:null

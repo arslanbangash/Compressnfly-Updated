@@ -2,6 +2,13 @@ import Header from "@/components/Header";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Compressnfly Blog - File Compression Tips & Guides",
+  description:
+    "Explore our expert guides on compressing PDFs, images, videos, and audio files. Learn how to optimize file sizes for free.",
+};
 
 const Blog = () => {
   const blogPosts = [
