@@ -1,0 +1,11 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/blog/audio-compression-guide/page": "app/blog/audio-compression-guide/page.js",
+  "/blog/file-compression-guide/page": "app/blog/file-compression-guide/page.js",
+  "/blog/file-size-importance/page": "app/blog/file-size-importance/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/blog/pdf-compression-guide/page": "app/blog/pdf-compression-guide/page.js",
+  "/blog/video-compression-guide/page": "app/blog/video-compression-guide/page.js",
+  "/page": "app/page.js"
+}

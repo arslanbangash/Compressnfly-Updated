@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 
 interface Particle {
   id: number;
@@ -15,7 +17,7 @@ const ParticleSystem = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [particles, setParticles] = useState<Particle[]>([]);
   const mouseRef = useRef({ x: 0, y: 0 });
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number | null>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -27,7 +29,7 @@ const ParticleSystem = () => {
     };
 
     resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
+    window.addEventListener("resize", resizeCanvas);
 
     // Initialize particles
     const initialParticles: Particle[] = [];
@@ -40,7 +42,7 @@ const ParticleSystem = () => {
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 1.5 + 0.5,
         opacity: Math.random() * 0.3 + 0.1,
-        color: Math.random() > 0.7 ? 'hsl(210, 50%, 80%)' : 'hsl(0, 0%, 95%)',
+        color: Math.random() > 0.7 ? "hsl(210, 50%, 80%)" : "hsl(0, 0%, 95%)",
       });
     }
     setParticles(initialParticles);
@@ -54,11 +56,11 @@ const ParticleSystem = () => {
       };
     };
 
-    canvas.addEventListener('mousemove', handleMouseMove);
+    canvas.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      canvas.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener("resize", resizeCanvas);
+      canvas.removeEventListener("mousemove", handleMouseMove);
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
@@ -69,23 +71,23 @@ const ParticleSystem = () => {
     const canvas = canvasRef.current;
     if (!canvas || particles.length === 0) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      setParticles(prevParticles =>
-        prevParticles.map(particle => {
+      setParticles((prevParticles) =>
+        prevParticles.map((particle) => {
           let { x, y, vx, vy } = particle;
 
           // Mouse interaction - subtle attraction
           const dx = mouseRef.current.x - x;
           const dy = mouseRef.current.y - y;
           const distance = Math.sqrt(dx * dx + dy * dy);
-          
+
           if (distance < 150) {
-            const force = (150 - distance) / 150 * 0.01;
+            const force = ((150 - distance) / 150) * 0.01;
             vx += (dx / distance) * force;
             vy += (dy / distance) * force;
           }
@@ -107,11 +109,13 @@ const ParticleSystem = () => {
           // Draw particle
           ctx.beginPath();
           ctx.arc(x, y, particle.size, 0, Math.PI * 2);
-          ctx.fillStyle = particle.color.replace(')', `, ${particle.opacity})`).replace('hsl', 'hsla');
+          ctx.fillStyle = particle.color
+            .replace(")", `, ${particle.opacity})`)
+            .replace("hsl", "hsla");
           ctx.fill();
 
           return { ...particle, x, y, vx, vy };
-        })
+        }),
       );
 
       animationRef.current = requestAnimationFrame(animate);

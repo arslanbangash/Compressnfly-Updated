@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
+"use client";
+
+import { useEffect, useState } from "react";
 
 const FloatingOrbs = () => {
-  const [orbs, setOrbs] = useState<Array<{
-    id: number;
-    x: number;
-    y: number;
-    size: number;
-    duration: number;
-    delay: number;
-    opacity: number;
-  }>>([]);
+  const [orbs, setOrbs] = useState<
+    Array<{
+      id: number;
+      x: number;
+      y: number;
+      size: number;
+      duration: number;
+      delay: number;
+      opacity: number;
+    }>
+  >([]);
 
   useEffect(() => {
     // Create random orbs
@@ -39,11 +43,11 @@ const FloatingOrbs = () => {
             background: `radial-gradient(circle, hsl(var(--primary) / ${orb.opacity}) 0%, hsl(var(--primary) / 0) 70%)`,
             animationDuration: `${orb.duration}s`,
             animationDelay: `${orb.delay}s`,
-            filter: 'blur(1px)',
+            filter: "blur(1px)",
           }}
         />
       ))}
-      
+
       {/* Additional accent orbs with different blue tones */}
       {Array.from({ length: 4 }).map((_, i) => (
         <div
@@ -57,7 +61,7 @@ const FloatingOrbs = () => {
             background: `radial-gradient(circle, hsl(262 83% 58% / ${Math.random() * 0.2 + 0.05}) 0%, hsl(262 83% 58% / 0) 70%)`,
             animationDuration: `${Math.random() * 25 + 20}s`,
             animationDelay: `${Math.random() * 15}s`,
-            filter: 'blur(2px)',
+            filter: "blur(2px)",
           }}
         />
       ))}
