@@ -11,6 +11,11 @@ import FileCompressionGuide from "./pages/FileCompressionGuide";
 import FileSizeImportance from "./pages/FileSizeImportance";
 import VideoCompressionGuide from "./pages/VideoCompressionGuide";
 import AudioCompressionGuide from "./pages/AudioCompressionGuide";
+import CompressPDFGuide from "./pages/CompressPDFGuide";
+import CompressImagesGuide from "./pages/CompressImagesGuide";
+import ReduceWordDocSize from "./pages/ReduceWordDocSize";
+import WhyFileSoLarge from "./pages/WhyFileSoLarge";
+import CompressFilesOnlineFree from "./pages/CompressFilesOnlineFree";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,7 +35,11 @@ const App = () => (
             <Route path="/blog/file-size-importance" element={<FileSizeImportance />} />
             <Route path="/blog/video-compression-guide" element={<VideoCompressionGuide />} />
             <Route path="/blog/audio-compression-guide" element={<AudioCompressionGuide />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="/blog/compress-pdf-without-losing-quality" element={<CompressPDFGuide />} />
+            <Route path="/blog/compress-images-online" element={<CompressImagesGuide />} />
+            <Route path="/blog/reduce-word-document-file-size" element={<ReduceWordDocSize />} />
+            <Route path="/blog/why-is-my-file-so-large" element={<WhyFileSoLarge />} />
+            <Route path="/blog/compress-files-online-free" element={<CompressFilesOnlineFree />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
