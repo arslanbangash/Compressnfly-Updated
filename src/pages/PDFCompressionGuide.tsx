@@ -233,7 +233,7 @@ const PDFCompressionGuide = () => {
           content={blogContent}
           category="Tutorial"
           readTime="8 min read"
-          date="2024-01-20"
+          date="2026-01-20"
           author="Compressnfly Team"
         />
       </main>

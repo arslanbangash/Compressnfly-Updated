@@ -87,7 +87,7 @@ const FileCompressionGuide = () => {
           content={content}
           category="Tutorial"
           readTime="5 min read"
-          date="2024-01-15"
+          date="2026-01-15"
           author="Compressnfly Team"
         />
       </main>

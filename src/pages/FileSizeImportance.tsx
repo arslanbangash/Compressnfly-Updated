@@ -79,7 +79,7 @@ const FileSizeImportance = () => {
           content={content}
           category="Insights"
           readTime="3 min read"
-          date="2024-01-10"
+          date="2026-01-10"
           author="Compressnfly Team"
         />
       </main>

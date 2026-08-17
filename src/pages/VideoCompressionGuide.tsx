@@ -108,7 +108,7 @@ const VideoCompressionGuide = () => {
           content={content}
           category="Tutorial"
           readTime="7 min read"
-          date="2024-01-05"
+          date="2026-01-05"
           author="Compressnfly Team"
         />
       </main>

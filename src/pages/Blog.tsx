@@ -9,7 +9,7 @@ const Blog = () => {
       id: 1,
       title: "How to Reduce PDF File Size for Free: The Complete 2024 Guide",
       excerpt: "Learn the easiest way to compress PDF files online for free. Step-by-step guide with tips for students and professionals.",
-      date: "2024-01-20",
+      date: "2026-01-20",
       category: "Tutorial",
       readTime: "8 min read",
       link: "/blog/pdf-compression-guide"
@@ -18,16 +18,16 @@ const Blog = () => {
       id: 2,
       title: "The Ultimate Guide to File Compression",
       excerpt: "Learn everything you need to know about compressing files efficiently while maintaining quality.",
-      date: "2024-01-15",
+      date: "2026-02-15",
       category: "Tutorial",
       readTime: "5 min read",
       link: "/blog/file-compression-guide"
     },
     {
       id: 3,
-      title: "Why File Size Matters in 2025",
+      title: "Why File Size Matters in 2026",
       excerpt: "Explore the importance of optimized file sizes for web performance and user experience.",
-      date: "2024-01-10",
+      date: "2026-03-10",
       category: "Insights",
       readTime: "3 min read",
       link: "/blog/file-size-importance"
@@ -36,7 +36,7 @@ const Blog = () => {
       id: 4,
       title: "Video Compression Best Practices",
       excerpt: "Discover the latest techniques for compressing video files without losing quality.",
-      date: "2024-01-05",
+      date: "2026-04-05",
       category: "Tutorial",
       readTime: "7 min read",
       link: "/blog/video-compression-guide"
@@ -45,7 +45,7 @@ const Blog = () => {
       id: 5,
       title: "Audio Compression Formats Explained",
       excerpt: "A comprehensive comparison of different audio compression formats and their use cases.",
-      date: "2024-01-01",
+      date: "2026-05-01",
       category: "Guide",
       readTime: "4 min read",
       link: "/blog/audio-compression-guide"
