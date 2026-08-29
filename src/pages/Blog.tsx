@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Blog = () => {
   const blogPosts = [
+        { id: 11, title: "How to Compress a PDF for Email — Fit Gmail's 25MB Limit", excerpt: "PDF too big to email? Learn why attachments bounce even under 25MB, and compress yours to fit Gmail and Outlook in seconds — free, no upload.", date: "2026-08-30", category: "Tutorial", readTime: "6 min read", link: "/blog/compress-pdf-for-email" },
     {
       id: 1,
       title: "How to Reduce PDF File Size for Free: The Complete 2024 Guide",
