@@ -33,9 +33,9 @@ const Header = () => {
               <Link to="/blog" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-200">
                 Blog
               </Link>
-              <a href="/#contact" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-200">
+              <Link to="/contact" className="text-sm font-medium text-foreground/80 hover:text-primary transition-colors duration-200">
                 Contact
-              </a>
+              </Link>
             </nav>
             
             {/* Theme Toggle */}
@@ -68,9 +68,9 @@ const Header = () => {
             <Link to="/blog" className="block px-4 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 transition-colors duration-200">
               Blog
             </Link>
-            <a href="/#contact" className="block px-4 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 transition-colors duration-200">
+            <Link to="/contact" className="block px-4 py-2 rounded-lg text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted/50 transition-colors duration-200">
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       )}
