@@ -1,6 +1,9 @@
 // Single source of truth for every indexable page:
 // used for <title>/meta/canonical, the generated sitemap, and prerendering.
 // To add a page: add a Route in App.tsx AND an entry here.
+// Tool pages are added automatically from src/tools/toolPages.ts.
+
+import { toolPages } from "@/tools/toolPages";
 
 export const SITE_URL = "https://compressnfly.com";
 export const SITE_NAME = "Compressnfly";
@@ -9,7 +12,9 @@ export const CONTACT_EMAIL = "compressnfly@outlook.com";
 export interface PageMeta {
   title: string;
   description: string;
-  type?: "website" | "article";
+  type?: "website" | "article" | "tool";
+  /** Short name used in breadcrumbs */
+  name?: string;
   /** ISO date, articles only */
   datePublished?: string;
   /** ISO date; used for sitemap lastmod and Article schema */
@@ -160,6 +165,18 @@ export const pages: Record<string, PageMeta> = {
     dateModified: "2026-10-14",
   },
 };
+
+// Tool pages rank highest after the homepage: they're what people search for.
+for (const t of toolPages) {
+  pages[t.path] = {
+    title: t.title,
+    description: t.description,
+    type: "tool",
+    name: t.name,
+    priority: 0.9,
+    dateModified: "2026-10-14",
+  };
+}
 
 export const notFoundMeta: PageMeta = {
   title: "Page Not Found | Compressnfly",

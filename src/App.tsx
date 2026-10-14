@@ -24,6 +24,8 @@ import ContactPage from "./pages/ContactPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
+import ToolPage from "./pages/ToolPage";
+import { toolPages } from "./tools/toolPages";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +56,9 @@ const App = () => (
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms" element={<Terms />} />
+          {toolPages.map((t) => (
+            <Route key={t.path} path={t.path} element={<ToolPage config={t} />} />
+          ))}
           <Route path="*" element={<NotFound />} />
         </Routes>
         <Footer />

@@ -13,7 +13,7 @@ const FAQ = () => {
     },
     {
       question: "What file formats are supported?",
-      answer: "We support a wide range of formats including images (JPEG, PNG, GIF), documents (PDF, DOCX), spreadsheets (XLSX, CSV), and archives (ZIP, RAR)."
+      answer: "Images (JPG, PNG, WebP, GIF), PDFs, Word, Excel and PowerPoint files, text and CSV files, and ZIP archives. You can also compress images and PDFs to an exact size such as 100KB or 1MB."
     },
     {
       question: "Do I need to install any software?",

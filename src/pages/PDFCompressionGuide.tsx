@@ -228,7 +228,7 @@ const PDFCompressionGuide = () => {
     <div className="min-h-screen bg-background">
       <Header />
       <main className="container mx-auto py-12">
-        <BlogPost
+        <BlogPost ctaHref="/compress-pdf" ctaLabel="Compress Your PDF Now"
           title="How to Reduce PDF File Size for Free: The Complete 2024 Guide"
           content={blogContent}
           category="Tutorial"

@@ -70,7 +70,7 @@ const CompressImagesGuide = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <BlogPost title="How to Compress Images Online Without Losing Quality in 2026" content={content} category="Tutorial" readTime="11 min read" date="2026-05-05" author="CompressNFly Team" />
+      <BlogPost ctaHref="/compress-jpg" ctaLabel="Compress Your Images Now" title="How to Compress Images Online Without Losing Quality in 2026" content={content} category="Tutorial" readTime="11 min read" date="2026-05-05" author="CompressNFly Team" />
     </div>
   );
 };

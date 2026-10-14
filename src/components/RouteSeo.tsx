@@ -36,6 +36,28 @@ const RouteSeo = () => {
       },
     );
   }
+  if (m.type === "tool") {
+    jsonLd.push(
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        name: m.name ?? m.title,
+        url,
+        applicationCategory: "UtilitiesApplication",
+        operatingSystem: "Any (runs in the browser)",
+        offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+        description: m.description,
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: m.name ?? m.title, item: url },
+        ],
+      },
+    );
+  }
   if (m.type === "article") {
     jsonLd.push(
       {

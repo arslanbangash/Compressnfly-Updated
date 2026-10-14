@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { compressFile, downloadBlob, CompressionLevel, CompressionResult } from '@/lib/compressionEngine';
+import { compressFile, compressToTarget, downloadBlob, CompressionLevel, CompressionResult } from '@/lib/compressionEngine';
+import { Input } from '@/components/ui/input';
 import JSZip from 'jszip';
 import {
   CloudUpload, FileImage, File, FileText, FileSpreadsheet,
@@ -18,9 +19,39 @@ interface FileInfo {
   error?: string;
 }
 
-const CompressionTool = () => {
+export type CompressionMode = 'level' | 'target';
+
+export interface CompressionToolProps {
+  /** Lock the tool to one mode. When omitted, the user can switch between both. */
+  mode?: CompressionMode;
+  /** Preset target sizes (KB) offered in exact-size mode. */
+  targetOptionsKB?: number[];
+  defaultTargetKB?: number;
+  /** File input accept attribute. */
+  accept?: string;
+  /** Short list of supported types shown in the drop zone. */
+  dropHint?: string;
+  defaultLevel?: CompressionLevel;
+}
+
+const DEFAULT_ACCEPT = ".pdf,.jpg,.jpeg,.png,.gif,.webp,.svg,.bmp,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.rtf,.odt,.ods,.odp,.zip,.tar,.gz,.json,.xml,.md";
+const DEFAULT_TARGETS = [20, 50, 100, 200, 500, 1024];
+
+const formatTarget = (kb: number) => (kb >= 1024 && kb % 1024 === 0 ? `${kb / 1024} MB` : `${kb} KB`);
+
+const CompressionTool = ({
+  mode: lockedMode,
+  targetOptionsKB = DEFAULT_TARGETS,
+  defaultTargetKB = 100,
+  accept = DEFAULT_ACCEPT,
+  dropHint = "PDF, DOCX, XLSX, PPTX, JPG, PNG, WebP, ZIP & more",
+  defaultLevel = 'balanced',
+}: CompressionToolProps = {}) => {
   const [files, setFiles] = useState<FileInfo[]>([]);
-  const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>('balanced');
+  const [compressionLevel, setCompressionLevel] = useState<CompressionLevel>(defaultLevel);
+  const [mode, setMode] = useState<CompressionMode>(lockedMode ?? 'level');
+  const [targetKB, setTargetKB] = useState<number>(defaultTargetKB);
+  const [customTarget, setCustomTarget] = useState<string>('');
   const [isCompressing, setIsCompressing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [currentFileName, setCurrentFileName] = useState('');
@@ -89,6 +120,9 @@ const CompressionTool = () => {
     setIsCompressed(false);
   };
 
+  const customKB = parseFloat(customTarget);
+  const effectiveTargetKB = customTarget !== '' && customKB > 0 ? customKB : targetKB;
+
   // ── REAL compression using compressionEngine ──────────────────────────────
   const compressFiles = async () => {
     if (files.length === 0) return;
@@ -101,7 +135,9 @@ const CompressionTool = () => {
       const fileInfo = files[i];
       setCurrentFileName(fileInfo.file.name);
       try {
-        const result = await compressFile(fileInfo.file, compressionLevel);
+        const result = mode === 'target'
+          ? await compressToTarget(fileInfo.file, Math.floor(effectiveTargetKB * 1024))
+          : await compressFile(fileInfo.file, compressionLevel);
         updatedFiles[i] = { ...fileInfo, result };
       } catch (err) {
         const msg = err instanceof Error ? err.message : 'Compression failed';
@@ -178,13 +214,13 @@ const CompressionTool = () => {
               <div className="flex flex-col items-center justify-center">
                 <CloudUpload className="w-12 h-12 text-primary mb-4 animate-bounce" />
                 <h3 className="text-xl font-semibold text-foreground mb-2">Drag & drop files here</h3>
-                <p className="text-muted-foreground mb-4">PDF, DOCX, XLSX, PPTX, JPG, PNG, WebP, ZIP & more</p>
+                <p className="text-muted-foreground mb-4">{dropHint}</p>
                 <Button className="bg-primary hover:bg-primary-hover text-primary-foreground">Browse Files</Button>
                 <p className="text-xs text-muted-foreground mt-2">Max 100MB per file · Files never leave your device</p>
               </div>
               <input
                 ref={fileInputRef} type="file" className="hidden" multiple
-                accept=".pdf,.jpg,.jpeg,.png,.gif,.webp,.svg,.bmp,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.csv,.txt,.rtf,.odt,.ods,.odp,.zip,.tar,.gz,.json,.xml,.md"
+                accept={accept}
                 onChange={handleFileInputChange}
               />
             </div>
@@ -242,26 +278,90 @@ const CompressionTool = () => {
 
           {/* ── Options ── */}
           {files.length > 0 && !isCompressed && (
-            <div className="mb-6 animate-fade-in-up">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+            <div className="mb-6 animate-fade-in-up space-y-4">
+              {!lockedMode && (
                 <div>
-                  <label className="block text-sm font-medium text-foreground mb-2">Compression Level</label>
-                  <Select value={compressionLevel} onValueChange={(v) => setCompressionLevel(v as CompressionLevel)}>
-                    <SelectTrigger><SelectValue /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="high-quality">High Quality — minimal size reduction</SelectItem>
-                      <SelectItem value="web-optimized">Web Optimized — good quality, smaller</SelectItem>
-                      <SelectItem value="balanced">Balanced — recommended</SelectItem>
-                      <SelectItem value="small-size">Small Size — maximum compression</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <label className="block text-sm font-medium text-foreground mb-2">How do you want to compress?</label>
+                  <div className="grid grid-cols-2 gap-2" role="radiogroup">
+                    {([
+                      ['level', 'By quality level'],
+                      ['target', 'To an exact size'],
+                    ] as const).map(([value, label]) => (
+                      <button
+                        key={value}
+                        type="button"
+                        role="radio"
+                        aria-checked={mode === value}
+                        onClick={() => setMode(value)}
+                        className={`rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                          mode === value ? 'border-primary bg-primary/10 text-primary' : 'border-border text-foreground hover:bg-muted/50'
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
-                <div className="flex justify-end">
-                  <Button variant="ghost" onClick={() => setCompressionLevel('balanced')} className="text-primary">
-                    <RotateCcw className="w-4 h-4 mr-1" /> Reset
-                  </Button>
+              )}
+
+              {mode === 'level' ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">Compression Level</label>
+                    <Select value={compressionLevel} onValueChange={(v) => setCompressionLevel(v as CompressionLevel)}>
+                      <SelectTrigger><SelectValue /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="high-quality">High Quality — minimal size reduction</SelectItem>
+                        <SelectItem value="web-optimized">Web Optimized — good quality, smaller</SelectItem>
+                        <SelectItem value="balanced">Balanced — recommended</SelectItem>
+                        <SelectItem value="small-size">Small Size — maximum compression</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex justify-end">
+                    <Button variant="ghost" onClick={() => setCompressionLevel(defaultLevel)} className="text-primary">
+                      <RotateCcw className="w-4 h-4 mr-1" /> Reset
+                    </Button>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-2">Maximum file size</label>
+                  <div className="flex flex-wrap gap-2">
+                    {targetOptionsKB.map((kb) => (
+                      <button
+                        key={kb}
+                        type="button"
+                        onClick={() => { setTargetKB(kb); setCustomTarget(''); }}
+                        className={`rounded-full border px-4 py-1.5 text-sm font-medium transition-colors ${
+                          customTarget === '' && targetKB === kb
+                            ? 'border-primary bg-primary text-primary-foreground'
+                            : 'border-border text-foreground hover:bg-muted/50'
+                        }`}
+                      >
+                        {formatTarget(kb)}
+                      </button>
+                    ))}
+                    <div className="flex items-center gap-1">
+                      <Input
+                        type="number"
+                        inputMode="numeric"
+                        min={1}
+                        placeholder="Custom"
+                        value={customTarget}
+                        onChange={(e) => setCustomTarget(e.target.value)}
+                        className="w-24 h-9"
+                        aria-label="Custom size in KB"
+                      />
+                      <span className="text-sm text-muted-foreground">KB</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Each file will be made {formatTarget(effectiveTargetKB)} or smaller. Images are saved as JPG,
+                    the format most forms accept.
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
@@ -333,7 +433,22 @@ const CompressionTool = () => {
                             <p className="text-xs text-muted-foreground">
                               {formatFileSize(fileInfo.file.size)} → {formatFileSize(fileInfo.result.compressedSize)}
                               {' '}({fileInfo.result.compressionPercent}% smaller)
+                              {fileInfo.result.width && ` · ${fileInfo.result.width}×${fileInfo.result.height}px`}
                             </p>
+                          )}
+                          {fileInfo.result?.targetBytes !== undefined && (
+                            fileInfo.result.hitTarget ? (
+                              <p className="text-xs font-medium text-success mt-1">
+                                ✓ Under {formatFileSize(fileInfo.result.targetBytes)}
+                              </p>
+                            ) : (
+                              <p className="text-xs font-medium text-destructive mt-1">
+                                Couldn't get this file under {formatFileSize(fileInfo.result.targetBytes)} — this is the smallest version possible.
+                              </p>
+                            )
+                          )}
+                          {fileInfo.result?.note && (
+                            <p className="text-xs text-muted-foreground mt-1">{fileInfo.result.note}</p>
                           )}
                           {fileInfo.error && (
                             <p className="text-xs text-destructive">{fileInfo.error}</p>

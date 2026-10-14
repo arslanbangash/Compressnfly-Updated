@@ -7,7 +7,7 @@ const CompressPDFForEmail = () => {
 
       <div className="bg-primary/5 border border-primary/10 rounded-lg p-6">
         <p className="text-lg font-medium text-foreground">You attach your PDF, hit send, and the email bounces back: <strong>"Attachment too large."</strong> Now you're stuck — the file has to go out, but your email won't let it.</p>
-        <p className="mt-3 text-muted-foreground">You can fix this in under a minute. Compress your PDF right here in your browser — free, no software, and nothing gets uploaded to anyone's server. Your file stays on your device the entire time, which matters when you're emailing contracts, invoices, or ID scans. <a href="/" className="text-primary font-medium underline">Compress your PDF now →</a></p>
+        <p className="mt-3 text-muted-foreground">You can fix this in under a minute. Compress your PDF right here in your browser — free, no software, and nothing gets uploaded to anyone's server. Your file stays on your device the entire time, which matters when you're emailing contracts, invoices, or ID scans. <a href="/compress-pdf" className="text-primary font-medium underline">Compress your PDF now →</a></p>
       </div>
 
       <h2 className="text-2xl font-bold">What Are the Email Attachment Size Limits?</h2>
@@ -45,7 +45,7 @@ const CompressPDFForEmail = () => {
       <p>This takes about 30 seconds and works on any device with a browser — desktop or phone, no app required.</p>
 
       <div className="space-y-3">
-        <p><strong>Step 1:</strong> Open the <a href="/" className="text-primary font-medium underline">CompressNFly compressor</a> in your browser.</p>
+        <p><strong>Step 1:</strong> Open the <a href="/compress-pdf" className="text-primary font-medium underline">CompressNFly compressor</a> in your browser.</p>
         <p><strong>Step 2:</strong> Drag your PDF onto the page, or click to select it. Your file stays on your device — it's never uploaded to a server.</p>
         <p><strong>Step 3:</strong> Choose a compression level. For email, "Balanced" or "Web Optimized" gives you the biggest size drop while keeping text sharp and readable.</p>
         <p><strong>Step 4:</strong> Download your compressed PDF. Check that the new size is comfortably under your email provider's limit (aim for 18–20MB for Gmail).</p>
@@ -63,7 +63,7 @@ const CompressPDFForEmail = () => {
 
       <div className="bg-primary/5 border border-primary/10 rounded-lg p-6">
         <p className="text-lg font-medium text-foreground">Ready to get your PDF under the limit?</p>
-        <p className="mt-2 text-muted-foreground">Compress it in seconds, right in your browser — free, private, and no sign-up. <a href="/" className="text-primary font-medium underline">Compress your PDF now →</a></p>
+        <p className="mt-2 text-muted-foreground">Compress it in seconds, right in your browser — free, private, and no sign-up. <a href="/compress-pdf" className="text-primary font-medium underline">Compress your PDF now →</a></p>
       </div>
 
       <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
@@ -88,7 +88,7 @@ const CompressPDFForEmail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <BlogPost title="How to Compress a PDF for Email — Fit Gmail's 25MB Limit (and Outlook's 20MB)" content={content} category="Tutorial" readTime="6 min read" date="2026-08-30" author="CompressNFly Team" />
+      <BlogPost ctaHref="/compress-pdf" ctaLabel="Compress Your PDF Now" title="How to Compress a PDF for Email — Fit Gmail's 25MB Limit (and Outlook's 20MB)" content={content} category="Tutorial" readTime="6 min read" date="2026-08-30" author="CompressNFly Team" />
     </div>
   );
 };

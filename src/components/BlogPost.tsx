@@ -10,9 +10,12 @@ interface BlogPostProps {
   readTime: string;
   date: string;
   author: string;
+  /** Where the "Try it" button goes — the most relevant tool page. */
+  ctaHref?: string;
+  ctaLabel?: string;
 }
 
-const BlogPost = ({ title, content, category, readTime, date, author }: BlogPostProps) => {
+const BlogPost = ({ title, content, category, readTime, date, author, ctaHref = '/', ctaLabel = 'Try Compressnfly Now' }: BlogPostProps) => {
   return (
     <article className="max-w-4xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -53,9 +56,9 @@ const BlogPost = ({ title, content, category, readTime, date, author }: BlogPost
       
       {/* Call to Action */}
       <div className="mt-12 p-8 bg-primary/5 rounded-lg border border-primary/10 text-center">
-        <Link to="/">
+        <Link to={ctaHref}>
           <Button size="lg" className="inline-flex items-center gap-2">
-            Try Compressnfly Now
+            {ctaLabel}
           </Button>
         </Link>
       </div>
