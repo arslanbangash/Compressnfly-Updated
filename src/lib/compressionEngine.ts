@@ -192,7 +192,9 @@ async function rasterizePdf(pdfBytes: Uint8Array, pageScale: number, quality: nu
       const ctx = canvas.getContext('2d')!;
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      await page.render({ canvasContext: ctx, viewport }).promise;
+      // 'print' intent renders without waiting for animation frames, so it
+      // keeps going when the tab is in the background.
+      await page.render({ canvasContext: ctx, viewport, intent: 'print' }).promise;
 
       const jpg = await canvasToBlob(canvas, 'image/jpeg', quality);
       const img = await out.embedJpg(await jpg.arrayBuffer());
@@ -208,12 +210,6 @@ async function rasterizePdf(pdfBytes: Uint8Array, pageScale: number, quality: nu
     await doc.destroy();
   }
 }
-
-/** Ordered from best quality to smallest file: [pageScale (1 = 72 DPI), JPEG quality]. */
-const PDF_TARGET_STEPS: [number, number][] = [
-  [2.0, 0.8], [2.0, 0.65], [1.6, 0.65], [1.6, 0.5], [1.3, 0.5],
-  [1.3, 0.4], [1.1, 0.4], [1.0, 0.3], [0.85, 0.3], [0.7, 0.25],
-];
 
 async function compressPDFToTarget(file: File, targetBytes: number): Promise<CompressionResult> {
   const arrayBuffer = await file.arrayBuffer();
@@ -247,18 +243,44 @@ async function compressPDFToTarget(file: File, targetBytes: number): Promise<Com
     // Damaged or unusual PDF — try rendering it anyway.
   }
 
-  // 2) Re-render pages at decreasing resolution/quality until it fits.
-  for (const [pageScale, quality] of PDF_TARGET_STEPS) {
+  // 2) Re-render pages as JPEGs. Start at a good on-screen resolution, then use
+  //    the size we get to estimate the resolution that fits — usually 2–3 passes.
+  const MAX_SCALE = 2.0;  // ~144 DPI
+  const MIN_SCALE = 0.6;  // ~43 DPI — below this text stops being readable
+  let scale = 1.6;
+  let quality = 0.7;
+  let fitted: Uint8Array | null = null;
+  let grew = false;
+
+  for (let attempt = 0; attempt < 6; attempt++) {
     let bytes: Uint8Array;
     try {
-      bytes = await rasterizePdf(original, pageScale, quality);
+      bytes = await rasterizePdf(original, scale, quality);
     } catch {
       break; // password-protected or unreadable by pdf.js
     }
     if (bytes.byteLength < smallest.byteLength) smallest = bytes;
-    if (bytes.byteLength <= targetBytes) return finish(bytes, true, true);
+    const ratio = targetBytes / bytes.byteLength;
+
+    if (bytes.byteLength <= targetBytes) {
+      fitted = bytes;
+      // Plenty of room left: try once at a higher resolution for sharper text.
+      if (!grew && ratio > 1.6 && scale < MAX_SCALE) {
+        grew = true;
+        scale = Math.min(MAX_SCALE, scale * Math.sqrt(ratio) * 0.85);
+        continue;
+      }
+      break;
+    }
+    if (fitted) break; // the sharper retry didn't fit; keep the earlier result
+
+    if (scale <= MIN_SCALE && quality <= 0.35) break; // can't go smaller
+    // Size scales roughly with pixel count (scale²). Lower quality a step too.
+    quality = Math.max(0.35, quality - 0.15);
+    scale = Math.max(MIN_SCALE, scale * Math.sqrt(ratio / 0.8) * 0.9);
   }
 
+  if (fitted) return finish(fitted, true, true);
   return finish(smallest, false, smallest !== original);
 }
 
