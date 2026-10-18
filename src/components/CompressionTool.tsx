@@ -4,14 +4,18 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { compressFile, compressToTarget, downloadBlob, CompressionLevel, CompressionResult } from '@/lib/compressionEngine';
+import type { CompressionLevel, CompressionResult } from '@/lib/compressionEngine';
+import { downloadBlob } from '@/lib/download';
 import { Input } from '@/components/ui/input';
-import JSZip from 'jszip';
 import {
   CloudUpload, FileImage, File, FileText, FileSpreadsheet,
   Archive, X, Download, Plus, RotateCcw, CheckCircle,
   FileVideo, FileAudio, FileType, FileJson, Presentation, AlertCircle
 } from 'lucide-react';
+
+// The compression libraries (PDF, ZIP, image) are large, so they're loaded only
+// when someone actually picks a file — not on every page view.
+const loadEngine = () => import('@/lib/compressionEngine');
 
 interface FileInfo {
   file: File;
@@ -97,6 +101,7 @@ const CompressionTool = ({
       selectedFiles = selectedFiles.filter(f => f.size <= maxSize);
       if (selectedFiles.length === 0) return;
     }
+    void loadEngine(); // start downloading the compressor while the user picks options
     setFiles(selectedFiles.map(file => ({ file })));
     setIsCompressed(false);
     setProgress(0);
@@ -126,6 +131,18 @@ const CompressionTool = ({
   // ── REAL compression using compressionEngine ──────────────────────────────
   const compressFiles = async () => {
     if (files.length === 0) return;
+    let engine: Awaited<ReturnType<typeof loadEngine>>;
+    try {
+      engine = await loadEngine();
+    } catch {
+      toast({
+        title: "Couldn't load the compressor",
+        description: "Check your internet connection and try again.",
+        variant: "destructive",
+      });
+      return;
+    }
+    const { compressFile, compressToTarget } = engine;
     setIsCompressing(true);
     setProgress(0);
 
@@ -173,6 +190,7 @@ const CompressionTool = ({
   };
 
   const downloadAllAsZip = async () => {
+    const { default: JSZip } = await import('jszip');
     const zip = new JSZip();
     for (const fileInfo of files) {
       if (fileInfo.result) {

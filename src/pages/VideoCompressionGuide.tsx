@@ -93,8 +93,13 @@ const VideoCompressionGuide = () => {
       <h2 className="text-3xl font-bold mb-6">Quality Control</h2>
       <p className="mb-6">
         Always preview your compressed videos before final delivery. Check for artifacts, 
-        audio sync issues, and overall quality. Use Compressnfly's advanced video compression 
-        to achieve optimal results with minimal effort.
+        audio sync issues, and overall quality.
+      </p>
+      <p className="mb-6">
+        A note on tools: Compressnfly compresses images, PDFs and documents in your browser, but it
+        doesn't re-encode video. For video files, a free desktop encoder such as HandBrake lets you
+        apply every setting in this guide. If your video is embedded in a PowerPoint or Word file,
+        remove or link it instead, then use Compressnfly to shrink the images in the rest of the document.
       </p>
     </>
   );

@@ -106,9 +106,12 @@ const AudioCompressionGuide = () => {
 
       <h2 className="text-3xl font-bold mb-6">Future of Audio Compression</h2>
       <p className="mb-6">
-        Emerging formats like Opus and enhanced AAC continue to improve compression efficiency. 
-        Compressnfly stays current with the latest audio compression technologies to provide 
-        optimal results for all your audio compression needs.
+        Emerging formats like Opus and enhanced AAC continue to improve compression efficiency.
+      </p>
+      <p className="mb-6">
+        A note on tools: Compressnfly focuses on images, PDFs and documents and doesn't re-encode
+        audio. To convert or shrink audio, a free editor such as Audacity can export to MP3, AAC,
+        Opus or FLAC using the bitrates recommended above.
       </p>
     </>
   );

@@ -69,11 +69,11 @@ const FileCompressionGuide = () => {
         installation required.
       </p>
       <ul className="list-disc list-inside mb-6 space-y-2">
-        <li>Support for all major file formats</li>
+        <li>Images (JPG, PNG, WebP), PDFs, Word, Excel and PowerPoint files, and ZIP archives</li>
+        <li>Compress to an exact size, such as 100KB or 1MB, for strict upload limits</li>
         <li>Batch compression for multiple files</li>
-        <li>No file size limits or registration required</li>
-        <li>Secure processing with automatic file deletion</li>
-        <li>Fast compression with instant downloads</li>
+        <li>No registration — files up to 100MB each</li>
+        <li>Private by design: files are processed in your browser and never uploaded</li>
       </ul>
     </>
   );

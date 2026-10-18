@@ -1,4 +1,4 @@
-import { ImageIcon, FileTextIcon, FileSpreadsheetIcon, PresentationIcon, ArchiveIcon, FileIcon, Music2Icon, VideoIcon, PlusIcon } from 'lucide-react';
+import { ImageIcon, FileTextIcon, FileSpreadsheetIcon, PresentationIcon, ArchiveIcon, FileIcon } from 'lucide-react';
 import ParticleSystem from './ParticleSystem';
 
 const Hero = () => {
@@ -55,15 +55,7 @@ const Hero = () => {
               </div>
               <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
                 <FileTextIcon className="w-3.5 h-3.5 text-blue-500" />
-                <span className="text-xs font-medium">DOC</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
-                <FileTextIcon className="w-3.5 h-3.5 text-blue-500" />
                 <span className="text-xs font-medium">DOCX</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
-                <FileSpreadsheetIcon className="w-3.5 h-3.5 text-green-500" />
-                <span className="text-xs font-medium">XLS</span>
               </div>
               <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
                 <FileSpreadsheetIcon className="w-3.5 h-3.5 text-green-500" />
@@ -71,37 +63,17 @@ const Hero = () => {
               </div>
               <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
                 <PresentationIcon className="w-3.5 h-3.5 text-orange-500" />
-                <span className="text-xs font-medium">PPT</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
-                <PresentationIcon className="w-3.5 h-3.5 text-orange-500" />
                 <span className="text-xs font-medium">PPTX</span>
               </div>
               
-              {/* Archives & Media */}
+              {/* Archives & text */}
               <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
                 <ArchiveIcon className="w-3.5 h-3.5 text-purple-500" />
                 <span className="text-xs font-medium">ZIP</span>
               </div>
               <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
-                <ArchiveIcon className="w-3.5 h-3.5 text-purple-500" />
-                <span className="text-xs font-medium">RAR</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
-                <Music2Icon className="w-3.5 h-3.5 text-pink-500" />
-                <span className="text-xs font-medium">MP3</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
-                <VideoIcon className="w-3.5 h-3.5 text-indigo-500" />
-                <span className="text-xs font-medium">MP4</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
                 <FileIcon className="w-3.5 h-3.5 text-gray-500" />
                 <span className="text-xs font-medium">TXT</span>
-              </div>
-              <div className="flex items-center gap-1.5 bg-card/40 backdrop-blur-sm border border-border/40 rounded-md px-2.5 py-1.5">
-                <PlusIcon className="w-3.5 h-3.5 text-muted-foreground" />
-                <span className="text-xs font-medium">30+ More</span>
               </div>
             </div>
           </div>

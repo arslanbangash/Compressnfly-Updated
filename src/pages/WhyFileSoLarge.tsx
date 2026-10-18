@@ -41,7 +41,7 @@ const WhyFileSoLarge = () => {
       <h2 className="text-2xl font-bold">The Universal Fix — CompressNFly</h2>
       <ol className="list-decimal list-inside space-y-2 pl-4">
         <li>Go to <strong>compressnfly.com</strong></li>
-        <li>Drag your file in — PDF, image, DOCX, PPTX, ZIP, 30+ formats</li>
+        <li>Drag your file in — PDF, image, DOCX, XLSX, PPTX or ZIP</li>
         <li>Choose <strong>Balanced</strong> compression</li>
         <li>Click <strong>Compress File</strong></li>
         <li>Download — 70–90% smaller</li>

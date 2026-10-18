@@ -550,6 +550,9 @@ function getFileCategory(file: File): 'image' | 'pdf' | 'office' | 'zip' | 'text
 
   if (type.startsWith('image/')) return 'image';
   if (type === 'application/pdf' || name.endsWith('.pdf')) return 'pdf';
+  // Old binary Office formats (.doc/.xls/.ppt) aren't ZIP-based like .docx,
+  // so the Office path can't open them — pack them into a ZIP instead.
+  if (/\.(doc|xls|ppt)$/.test(name)) return 'generic';
 
   if (
     type.includes('word') || type.includes('document') ||
@@ -594,13 +597,4 @@ function getCompressedFilename(filename: string): string {
   return filename.replace(/(\.[^.]+)$/, '_compressed$1');
 }
 
-export function downloadBlob(blob: Blob, filename: string): void {
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
+export { downloadBlob } from './download';

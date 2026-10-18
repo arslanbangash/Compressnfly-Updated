@@ -1,136 +1,103 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface Particle {
-  id: number;
   x: number;
   y: number;
   vx: number;
   vy: number;
   size: number;
-  opacity: number;
-  color: string;
+  fill: string;
 }
 
+/**
+ * Subtle drifting dots behind the hero.
+ * Drawn straight to the canvas — no React state — so it costs almost nothing
+ * per frame. Skipped for users who prefer reduced motion, and paused while
+ * the tab is hidden or the hero is scrolled out of view.
+ */
 const ParticleSystem = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [particles, setParticles] = useState<Particle[]>([]);
-  const mouseRef = useRef({ x: 0, y: 0 });
-  const animationRef = useRef<number>();
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    const resizeCanvas = () => {
+    const resize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     };
+    resize();
 
-    resizeCanvas();
-    window.addEventListener('resize', resizeCanvas);
-
-    // Initialize particles
-    const initialParticles: Particle[] = [];
-    for (let i = 0; i < 30; i++) {
-      initialParticles.push({
-        id: i,
+    const particles: Particle[] = Array.from({ length: 30 }, () => {
+      const blue = Math.random() > 0.7;
+      const opacity = Math.random() * 0.3 + 0.1;
+      return {
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         vx: (Math.random() - 0.5) * 0.5,
         vy: (Math.random() - 0.5) * 0.5,
         size: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.3 + 0.1,
-        color: Math.random() > 0.7 ? 'hsl(210, 50%, 80%)' : 'hsl(0, 0%, 95%)',
-      });
-    }
-    setParticles(initialParticles);
-
-    // Mouse move handler
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseRef.current = {
-        x: e.clientX - rect.left,
-        y: e.clientY - rect.top,
+        fill: blue ? `hsla(210, 50%, 80%, ${opacity})` : `hsla(0, 0%, 95%, ${opacity})`,
       };
+    });
+
+    let frame = 0;
+    let visible = true;
+
+    const draw = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0) p.x = canvas.width;
+        else if (p.x > canvas.width) p.x = 0;
+        if (p.y < 0) p.y = canvas.height;
+        else if (p.y > canvas.height) p.y = 0;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.fill;
+        ctx.fill();
+      }
+      frame = requestAnimationFrame(draw);
     };
 
-    canvas.addEventListener('mousemove', handleMouseMove);
+    const start = () => {
+      if (!frame && visible && !document.hidden) frame = requestAnimationFrame(draw);
+    };
+    const stop = () => {
+      cancelAnimationFrame(frame);
+      frame = 0;
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+      else stop();
+    });
+    observer.observe(canvas);
+
+    const onVisibility = () => (document.hidden ? stop() : start());
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('resize', resize);
+    start();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      stop();
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('resize', resize);
     };
   }, []);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas || particles.length === 0) return;
-
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      setParticles(prevParticles =>
-        prevParticles.map(particle => {
-          let { x, y, vx, vy } = particle;
-
-          // Mouse interaction - subtle attraction
-          const dx = mouseRef.current.x - x;
-          const dy = mouseRef.current.y - y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          
-          if (distance < 150) {
-            const force = (150 - distance) / 150 * 0.01;
-            vx += (dx / distance) * force;
-            vy += (dy / distance) * force;
-          }
-
-          // Update position
-          x += vx;
-          y += vy;
-
-          // Boundary wrapping
-          if (x < 0) x = canvas.width;
-          if (x > canvas.width) x = 0;
-          if (y < 0) y = canvas.height;
-          if (y > canvas.height) y = 0;
-
-          // Damping
-          vx *= 0.99;
-          vy *= 0.99;
-
-          // Draw particle
-          ctx.beginPath();
-          ctx.arc(x, y, particle.size, 0, Math.PI * 2);
-          ctx.fillStyle = particle.color.replace(')', `, ${particle.opacity})`).replace('hsl', 'hsla');
-          ctx.fill();
-
-          return { ...particle, x, y, vx, vy };
-        })
-      );
-
-      animationRef.current = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [particles.length]);
 
   return (
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full pointer-events-none"
       style={{ zIndex: 1 }}
+      aria-hidden="true"
     />
   );
 };
