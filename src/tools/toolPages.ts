@@ -3,6 +3,8 @@
 // To add a tool page: add an entry here — nothing else needed.
 
 import type { CompressionToolProps } from "@/components/CompressionTool";
+import type { ConverterToolProps } from "@/components/ConverterTool";
+import { converterPages } from "./converterPages";
 
 export interface ToolSection {
   heading: string;
@@ -20,7 +22,10 @@ export interface ToolPageConfig {
   title: string;
   description: string;
   intro: string;
-  tool: CompressionToolProps;
+  /** Compression tool settings (compress pages) */
+  tool?: CompressionToolProps;
+  /** Converter settings (convert / PDF pages) — use this OR `tool` */
+  converter?: ConverterToolProps;
   sections: ToolSection[];
   faqs: { q: string; a: string }[];
   related: string[];
@@ -677,7 +682,42 @@ export const toolPages: ToolPageConfig[] = [
       url: "https://onlinemrp.dgip.gov.pk/?p=2587",
     },
   },
+  ...converterPages,
 ];
+
+export type ToolGroup = "compress" | "image" | "pdf";
+
+export const groupOf = (t: ToolPageConfig): ToolGroup =>
+  !t.converter ? "compress" : t.converter.mode === "image" ? "image" : "pdf";
+
+export const GROUP_LABELS: Record<ToolGroup, string> = {
+  compress: "Compress",
+  image: "Convert images",
+  pdf: "PDF tools",
+};
+
+/** Shown in the "Popular tools" block on every tool page. */
+export const POPULAR_PATHS = [
+  "/heic-to-jpg",
+  "/compress-image-to-100kb",
+  "/pdf-to-jpg",
+  "/jpg-to-pdf",
+  "/webp-to-jpg",
+  "/compress-pdf",
+  "/merge-pdf",
+  "/png-to-jpg",
+];
+
+// Display order for grids and the footer: sizes small → large, then formats, then Pakistan-specific.
+const DISPLAY_ORDER = [
+  "/compress-image-to-20kb", "/compress-image-to-30kb", "/compress-image-to-50kb", "/compress-image-to-100kb",
+  "/compress-image-to-200kb", "/compress-image-to-500kb", "/reduce-image-size-in-kb",
+  "/compress-jpg", "/compress-png", "/compress-pdf",
+  "/compress-pdf-to-200kb", "/compress-pdf-to-500kb", "/compress-pdf-to-1mb", "/compress-pdf-to-2mb",
+  "/compress-photo-for-job-application", "/compress-documents-for-pakistan-passport",
+];
+const rank = (p: string) => { const i = DISPLAY_ORDER.indexOf(p); return i === -1 ? DISPLAY_ORDER.length : i; };
+toolPages.sort((a, b) => rank(a.path) - rank(b.path)); // stable: converters keep their written order
 
 export const toolPagesByPath: Record<string, ToolPageConfig> = Object.fromEntries(
   toolPages.map((t) => [t.path, t]),

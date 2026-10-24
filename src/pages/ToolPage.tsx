@@ -2,33 +2,38 @@ import { Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 import Header from "@/components/Header";
 import CompressionTool from "@/components/CompressionTool";
-import { toolPagesByPath, type ToolPageConfig } from "@/tools/toolPages";
+import ConverterTool from "@/components/ConverterTool";
+import { POPULAR_PATHS, toolPagesByPath, type ToolPageConfig } from "@/tools/toolPages";
 
 const ToolPage = ({ config }: { config: ToolPageConfig }) => {
   const related = config.related.map((p) => toolPagesByPath[p]).filter(Boolean);
+  const popular = POPULAR_PATHS.filter((p) => p !== config.path && !config.related.includes(p))
+    .map((p) => toolPagesByPath[p])
+    .filter(Boolean)
+    .slice(0, 6);
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      <section className="container mx-auto px-4 pt-10 max-w-4xl text-center">
+      <section className="container mx-auto px-4 pt-6 md:pt-10 max-w-4xl text-center">
         <nav aria-label="Breadcrumb" className="text-sm text-muted-foreground mb-4">
           <Link to="/" className="hover:text-primary">Home</Link>
           <span className="mx-2">›</span>
           <span>{config.name}</span>
         </nav>
         <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">{config.h1}</h1>
-        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{config.intro}</p>
-        <p className="mt-4 inline-flex items-center gap-2 text-sm text-muted-foreground">
+        <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">{config.intro}</p>
+        <p className="mt-3 inline-flex items-center gap-2 text-sm text-muted-foreground">
           <ShieldCheck className="w-4 h-4 text-primary" />
           Free · No sign-up · Files never leave your device
         </p>
       </section>
 
-      <CompressionTool {...config.tool} />
+      {config.converter ? <ConverterTool {...config.converter} /> : <CompressionTool {...config.tool} />}
 
       <article className="container mx-auto px-4 pb-8 max-w-3xl">
-        <div className="prose prose-lg max-w-none dark:prose-invert">
+        <div className="prose md:prose-lg max-w-none dark:prose-invert">
           {config.sections.map((section) => (
             <section key={section.heading}>
               <h2>{section.heading}</h2>
@@ -73,6 +78,22 @@ const ToolPage = ({ config }: { config: ToolPageConfig }) => {
                 >
                   <span className="block font-semibold text-card-foreground">{t.name}</span>
                   <span className="block text-sm text-muted-foreground">{t.blurb}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        {popular.length > 0 && (
+          <div className="mt-10">
+            <h2 className="text-xl font-bold text-foreground mb-4">Popular tools</h2>
+            <div className="flex flex-wrap gap-2">
+              {popular.map((t) => (
+                <Link
+                  key={t.path}
+                  to={t.path}
+                  className="rounded-full border border-border bg-card px-4 py-1.5 text-sm text-card-foreground hover:border-primary hover:text-primary transition-colors"
+                >
+                  {t.name}
                 </Link>
               ))}
             </div>

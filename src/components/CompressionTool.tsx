@@ -223,7 +223,7 @@ const CompressionTool = ({
           {/* ── Drop Zone ── */}
           {files.length === 0 && (
             <div
-              className={`file-drop-area rounded-lg p-12 text-center cursor-pointer mb-6 ${isDragging ? 'active' : ''}`}
+              className={`file-drop-area rounded-lg p-10 md:p-12 text-center cursor-pointer ${isDragging ? 'active' : ''}`}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
               onDrop={handleDrop}

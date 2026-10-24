@@ -14,7 +14,7 @@ const InfoPage = ({ title, updated, children }: InfoPageProps) => (
     <main className="max-w-3xl mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold text-foreground mb-2">{title}</h1>
       {updated && <p className="text-sm text-muted-foreground mb-8">Last updated: {updated}</p>}
-      <div className="prose prose-lg max-w-none dark:prose-invert">{children}</div>
+      <div className="prose md:prose-lg max-w-none dark:prose-invert">{children}</div>
     </main>
   </div>
 );

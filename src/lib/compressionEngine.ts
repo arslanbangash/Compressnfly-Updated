@@ -7,6 +7,7 @@ import imageCompression from 'browser-image-compression';
 import { PDFDocument } from 'pdf-lib';
 import JSZip from 'jszip';
 import { fitToTarget, initialScaleFor } from './targetSize';
+import { canvasToBlob, loadPdfJs } from './media';
 
 export type CompressionLevel = 'high-quality' | 'web-optimized' | 'balanced' | 'small-size';
 
@@ -153,20 +154,6 @@ async function renderPDFPagesAsImages(
 
 // ─── PDF rasterization (pdf.js, loaded only when needed) ─────────────────────────
 
-type PdfJs = typeof import('pdfjs-dist');
-let pdfjsPromise: Promise<PdfJs> | null = null;
-
-function loadPdfJs(): Promise<PdfJs> {
-  if (!pdfjsPromise) {
-    pdfjsPromise = (async () => {
-      const pdfjs = await import('pdfjs-dist');
-      const worker = await import('pdfjs-dist/build/pdf.worker.min.mjs?url');
-      pdfjs.GlobalWorkerOptions.workerSrc = worker.default;
-      return pdfjs;
-    })();
-  }
-  return pdfjsPromise;
-}
 
 const MAX_CANVAS_SIDE = 4096;
 
@@ -286,11 +273,6 @@ async function compressPDFToTarget(file: File, targetBytes: number): Promise<Com
 
 // ─── Image: compress to an exact target size ─────────────────────────────────────
 
-function canvasToBlob(canvas: HTMLCanvasElement, type: string, quality: number): Promise<Blob> {
-  return new Promise((resolve, reject) =>
-    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('Could not encode image'))), type, quality),
-  );
-}
 
 async function compressImageToTarget(file: File, targetBytes: number): Promise<CompressionResult> {
   let bitmap: ImageBitmap;
