@@ -156,11 +156,11 @@ export const pages: Record<string, PageMeta> = {
     priority: 0.5,
   },
   "/about": {
-    title: "About Compressnfly — Private, Browser-Based File Compression",
+    title: "About Compressnfly — Who Builds It and How It Works",
     description:
-      "Who builds Compressnfly, why it compresses files in your browser instead of uploading them, and how the tool works.",
+      "Compressnfly is built by AZM Developers. How it compresses files in your browser without uploading them, and how we test every tool.",
     priority: 0.4,
-    dateModified: "2026-10-14",
+    dateModified: "2026-11-02",
   },
   "/contact": {
     title: "Contact Compressnfly",
