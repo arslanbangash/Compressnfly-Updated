@@ -22,12 +22,12 @@ const CompressPDFForEmail = () => {
         <p><strong>HR portals and job boards:</strong> Often just 2–5MB per document.</p>
       </div>
 
-      <p>The safest target is <strong>under 20MB</strong>. That keeps you clear of every major provider in one shot, instead of guessing which limit applies.</p>
+      <p>The safest target is <strong>about 14MB</strong>: 70% of the smallest common limit (20MB). That leaves room for the encoding overhead explained below and keeps you clear of every major provider in one shot, instead of guessing which limit applies.</p>
 
       <h2 className="text-2xl font-bold">Why Your PDF Bounces Even When It Looks Under the Limit</h2>
       <p>Here's the frustrating one that trips almost everyone up. You check your PDF — it says 24MB on your computer, safely under Gmail's 25MB cap. You attach it. It <em>still</em> bounces.</p>
       <p>The reason: email doesn't send your file as-is. To travel over email, attachments get re-encoded into a text format called Base64, and that encoding adds roughly <strong>30% to the file size</strong> in transit. So a 24MB PDF on disk becomes about 31MB once your email client wraps it up — and now it's over the limit.</p>
-      <p>This is exactly why "just barely under the limit" fails. The fix is simple: aim a few megabytes below the cap. If Gmail's limit is 25MB, compress your PDF to around 18–20MB and it'll sail through with room to spare.</p>
+      <p>This is exactly why "just barely under the limit" fails. The fix is simple: aim a few megabytes below the cap. If Gmail's limit is 25MB, compress your PDF to around 17–18MB and it'll sail through even after encoding.</p>
 
       <h2 className="text-2xl font-bold">Why PDFs Get Too Big in the First Place</h2>
       <p>PDFs balloon in size for a handful of predictable reasons — and knowing which one applies tells you how much you can shrink it:</p>
@@ -47,8 +47,8 @@ const CompressPDFForEmail = () => {
       <div className="space-y-3">
         <p><strong>Step 1:</strong> Open the <a href="/compress-pdf" className="text-primary font-medium underline">CompressNFly compressor</a> in your browser.</p>
         <p><strong>Step 2:</strong> Drag your PDF onto the page, or click to select it. Your file stays on your device — it's never uploaded to a server.</p>
-        <p><strong>Step 3:</strong> Choose a compression level. For email, "Balanced" or "Web Optimized" gives you the biggest size drop while keeping text sharp and readable.</p>
-        <p><strong>Step 4:</strong> Download your compressed PDF. Check that the new size is comfortably under your email provider's limit (aim for 18–20MB for Gmail).</p>
+        <p><strong>Step 3:</strong> Choose <em>To an exact size</em> and pick a target below your limit, such as 2MB or 1MB, or type your own number. The tool tries a lossless clean-up first and only re-renders pages as images if that's needed to fit. (The quality levels from High Quality to Balanced only do the lossless clean-up for PDFs, which barely shrinks scans; Small Size re-renders pages.)</p>
+        <p><strong>Step 4:</strong> Download your compressed PDF. Check that the new size is comfortably under your email provider's limit (aim for 17–18MB for Gmail).</p>
         <p><strong>Step 5:</strong> Attach the compressed file to your email and send. It'll go through.</p>
       </div>
 
@@ -69,12 +69,12 @@ const CompressPDFForEmail = () => {
       <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
       <div className="space-y-4">
         {[
-          { q: "How do I compress a PDF to send in Gmail?", a: "Open the CompressNFly compressor, drag your PDF in, pick the Balanced level, and download. Aim for under 20MB so it stays clear of Gmail's 25MB limit even after email encoding." },
+          { q: "How do I compress a PDF to send in Gmail?", a: "Open the CompressNFly compressor, drag your PDF in, choose To an exact size with a target well under the limit, and download. Aim for 17–18MB or less so it stays clear of Gmail's 25MB limit even after email encoding." },
           { q: "Why is my PDF too large to email even though it's under 25MB?", a: "Email re-encodes attachments in a format that adds about 30% to the size in transit. A 24MB file can become around 31MB when sent, pushing it over the limit. Compress to a few MB below the cap to be safe." },
           { q: "Will compressing my PDF ruin the quality?", a: "No. Compression targets screen resolution, which is far lower than print resolution. Text stays sharp and selectable, and images look identical on screen. The difference is only visible if you zoom far in or print at high quality." },
           { q: "Is it safe to compress confidential documents?", a: "With CompressNFly, yes. Compression happens entirely in your browser — your file never leaves your device or gets uploaded to a server. That's especially important for contracts, invoices, and ID scans." },
           { q: "Can I compress a PDF for email on my phone?", a: "Yes. CompressNFly works in any mobile browser on iOS and Android — no app to install. Compress the file and attach it straight from your phone." },
-          { q: "What size should I compress my PDF to for email?", a: "Aim for under 20MB. That keeps you safely under Gmail, Outlook, and Yahoo limits at once, with headroom for the encoding overhead that email adds in transit." },
+          { q: "What size should I compress my PDF to for email?", a: "Aim for about 14MB or less. That keeps you safely under Gmail, Outlook, and Yahoo limits at once, with headroom for the encoding overhead that email adds in transit." },
         ].map((faq, i) => (
           <div key={i} className="bg-muted/30 rounded-lg p-4">
             <p className="font-semibold mb-1">{faq.q}</p>

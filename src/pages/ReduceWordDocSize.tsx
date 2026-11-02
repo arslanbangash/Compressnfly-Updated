@@ -1,73 +1,184 @@
+import { Link } from 'react-router-dom';
 import BlogPost from '@/components/BlogPost';
 import Header from '@/components/Header';
 
 const ReduceWordDocSize = () => {
   const content = (
-    <div className="space-y-8">
-      <div className="bg-primary/5 border border-primary/10 rounded-lg p-6">
-        <p className="text-lg font-medium">A Word document with 10 pages of text should be around 50–100KB. If yours is 10MB, 30MB, or 80MB — something hidden inside the file is causing it. This guide exposes exactly what and shows you 7 methods to fix it.</p>
-      </div>
-      <h2 className="text-2xl font-bold">What Is Actually Inside a Bloated Word Document?</h2>
-      <p>A .docx file is a ZIP archive. Word packages everything — text, images, fonts, styles, metadata — into a compressed container. The problem is Word stores things at full quality by default.</p>
-      <h3 className="text-xl font-semibold">1. High-Resolution Embedded Images (Biggest Cause)</h3>
-      <p>When you paste a photo into Word, it embeds the full original image at full resolution — even if it appears as a tiny thumbnail. Ten inserted photos = potentially 60MB of hidden image data.</p>
-      <h3 className="text-xl font-semibold">2. Tracked Changes and Revision History</h3>
-      <p>Every tracked change is stored as hidden data. A document through 30 rounds of editing accumulates megabytes of invisible revision history.</p>
-      <h3 className="text-xl font-semibold">3. Embedded Excel Charts</h3>
-      <p>Charts from Excel store a complete copy of the Excel workbook inside the Word file. A simple bar chart might carry a 5MB spreadsheet.</p>
-      <h3 className="text-xl font-semibold">4. Embedded Fonts for Compatibility</h3>
-      <p>Custom fonts with embed enabled store full font data. Each embedded font adds 500KB to several MB.</p>
-      <h2 className="text-2xl font-bold">Method 1: Compress with CompressNFly (Fastest — 30 Seconds)</h2>
-      <p>CompressNFly compresses DOCX files in your browser. No uploads, no software, no account needed. It unpacks the internal ZIP, recompresses embedded images, then repacks — the result opens identically in Word, Google Docs, and LibreOffice.</p>
-      <ol className="list-decimal list-inside space-y-2 pl-4">
-        <li>Go to <strong>compressnfly.com</strong></li>
-        <li>Drag your .docx file in</li>
-        <li>Choose <strong>Balanced</strong> compression</li>
-        <li>Click <strong>Compress File</strong></li>
-        <li>Download the compressed file</li>
-      </ol>
+    <>
+      <p>
+        Text barely weighs anything. Our 19-page, text-only test document was just <strong>49 KB</strong>. So when a
+        Word file runs to 5, 10 or 50 MB, the text isn't the problem. Something else is riding along inside, and in
+        most cases it's pictures.
+      </p>
+      <p>
+        Below: how to find exactly what's bloating your document, then 7 ways to fix it, starting with the one that
+        usually makes the biggest difference. We tested the main fix on a real 9.46 MB report so you can see the
+        numbers.
+      </p>
+
+      <h2>Step 0: find out what's actually taking up space</h2>
+      <p>
+        A .docx file is a ZIP archive with a different name. Make a <em>copy</em> of your document, rename the copy
+        from <code>.docx</code> to <code>.zip</code>, and open it. Look inside the <code>word/media</code> folder:
+        every picture in the document is there, at the size Word actually stored it.
+      </p>
+      <p>
+        In our 9.46 MB test report, that folder held three phone photos adding up to 9.44 MB. All the text, styles and
+        layout together took about 40 KB. If your media folder looks like that, start with methods 1 and 2. If it's
+        small, jump to methods 4–7.
+      </p>
+
+      <h2>Method 1: compress the whole file in your browser</h2>
+      <p>
+        Compressnfly opens the .docx, re-compresses the pictures in the media folder, and packs everything back up.
+        Text, formatting, tables and layout are left exactly as they were, and the file opens normally in Word, Google
+        Docs and LibreOffice. It runs in your browser, so the document isn't uploaded anywhere.
+      </p>
+      <p>Our 9.46 MB report (9 pages, six photos) at each level:</p>
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-sm mt-4">
-          <thead><tr className="border-b"><th className="text-left py-3 pr-4 font-semibold">Document Type</th><th className="text-left py-3 pr-4 font-semibold">Original</th><th className="text-left py-3 font-semibold">Compressed</th></tr></thead>
-          <tbody className="divide-y">
-            <tr><td className="py-3 pr-4">Report with 10 photos</td><td className="py-3 pr-4">65 MB</td><td className="py-3 text-green-600 font-medium">9 MB</td></tr>
-            <tr><td className="py-3 pr-4">Contract with tracked changes</td><td className="py-3 pr-4">18 MB</td><td className="py-3 text-green-600 font-medium">3.5 MB</td></tr>
-            <tr><td className="py-3 pr-4">Presentation-style DOCX</td><td className="py-3 pr-4">42 MB</td><td className="py-3 text-green-600 font-medium">7 MB</td></tr>
+        <table>
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Result</th>
+              <th>Saved</th>
+              <th>Photos looked</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>High Quality</td><td>2.45 MB</td><td>74%</td><td>No visible change</td></tr>
+            <tr><td>Balanced</td><td>384 KB</td><td>96%</td><td>Sharp at page size</td></tr>
+            <tr><td>Small Size</td><td>159 KB</td><td>98%</td><td>Fine on the page, soft if zoomed in</td></tr>
           </tbody>
         </table>
       </div>
-      <h2 className="text-2xl font-bold">Method 2: Compress Images Inside Word</h2>
-      <p><strong>Windows:</strong> Click image → Picture Format → Compress Pictures → uncheck "Apply only to this picture" → select Email (96 ppi) → OK → Save</p>
-      <p><strong>Mac:</strong> Click image → Format → Reduce File Size → apply to all → OK → Save</p>
-      <h2 className="text-2xl font-bold">Method 3: Accept All Tracked Changes</h2>
-      <p>Review tab → Accept → Accept All Changes → Delete → Delete All Comments → File → Info → Inspect Document → remove hidden data → Save</p>
-      <h2 className="text-2xl font-bold">Method 4: Save as a Fresh File</h2>
-      <p>File → Save As → new filename → Save. This strips accumulated temporary data and internal artifacts.</p>
-      <h2 className="text-2xl font-bold">Method 5: Convert Charts to Images</h2>
-      <p>Right-click chart → Copy → delete original → Home → Paste Special → Picture PNG. Chart looks identical but stored as lightweight image instead of full Excel workbook.</p>
-      <h2 className="text-2xl font-bold">Method 6: Compress Images Before Inserting</h2>
-      <p>Compress images at <strong>compressnfly.com</strong> first, then insert the compressed images into Word. Your document stays small from the start.</p>
-      <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
-      <div className="space-y-4">
-        {[
-          { q: "Will compressing affect text formatting?", a: "No. All text, fonts, tables, headers, and structure are preserved exactly. Only embedded image resolution is reduced — invisibly." },
-          { q: "Can I compress DOCX without Microsoft Word?", a: "Yes. CompressNFly compresses DOCX in your browser — no Word required." },
-          { q: "Why is my document large with very little text?", a: "Almost certainly embedded images stored at full resolution internally despite appearing small on the page." },
-          { q: "Will the compressed file open in Google Docs?", a: "Yes. Fully compatible with all word processors that support .docx format." },
-        ].map((faq, i) => (
-          <div key={i} className="bg-muted/30 rounded-lg p-4">
-            <p className="font-semibold mb-1">{faq.q}</p>
-            <p className="text-muted-foreground text-sm">{faq.a}</p>
-          </div>
-        ))}
+      <p>
+        For comparison, the text-only document went from 49 KB to 48 KB. With no pictures inside, there's almost
+        nothing to compress, which is also how you can tell pictures aren't your problem.
+      </p>
+      <p>
+        <strong>How:</strong> open the <Link to="/">compressor</Link>, drop in the .docx, choose a level (Balanced is
+        right for email), and download the copy.
+      </p>
+
+      <h2>Method 2: compress pictures inside Word</h2>
+      <p>Word has its own picture compressor. It's well hidden:</p>
+      <ul>
+        <li>
+          <strong>Windows:</strong> click any picture → <strong>Picture Format → Compress Pictures</strong> → untick
+          <em> Apply only to this picture</em> → choose <em>Web (150 ppi)</em> or <em>E-mail (96 ppi)</em> → OK, then save.
+        </li>
+        <li>
+          <strong>Mac:</strong> click a picture → <strong>Picture Format → Compress Pictures</strong> → choose the
+          picture quality and apply it to all pictures in the file, then save.
+        </li>
+      </ul>
+      <p>
+        Also tick <em>Delete cropped areas of pictures</em> in the same dialog. Cropping a photo in Word only hides the
+        edges. The full photo stays inside the file until you delete the cropped areas.
+      </p>
+
+      <h2>Method 3: stop Word keeping full-size pictures</h2>
+      <p>
+        In <strong>File → Options → Advanced</strong> (Windows) under <em>Image Size and Quality</em>, check that{' '}
+        <em>Do not compress images in file</em> is <strong>unticked</strong>, and set the default resolution to 150 or
+        220 ppi rather than "High fidelity". Templates made by design teams often have these set to keep every picture
+        at full size.
+      </p>
+
+      <h2>Method 4: shrink pictures before you insert them</h2>
+      <p>
+        The best fix is never letting a 4 MB photo in. A document photo shown at half-page width needs about 1,200
+        pixels at most. Run your photos through the <Link to="/compress-jpg">image compressor</Link> first.{' '}
+        <em>Balanced</em> brought our phone photos down to 78–153 KB each. Our{' '}
+        <Link to="/blog/compress-images-online">image compression test</Link> shows what each setting looks like.
+      </p>
+
+      <h2>Method 5: turn off embedded fonts</h2>
+      <p>
+        <strong>File → Options → Save → Embed fonts in the file</strong> packs the font files into your document so it
+        looks identical on other computers. Each font family can add from a few hundred KB to several MB. Unless the
+        recipient really needs your exact custom font, untick it. If you must embed, tick <em>Embed only the characters
+        used in the document</em> and <em>Do not embed common system fonts</em>.
+      </p>
+
+      <h2>Method 6: replace embedded charts and objects</h2>
+      <p>
+        A chart created in Word, or pasted from Excel with its workbook embedded, carries a copy of that spreadsheet
+        data inside the document. For a large workbook, that can be a lot. If the chart no longer needs editing, copy it
+        and use <strong>Paste Special → Picture (PNG)</strong> to replace it with an image. The same goes for embedded
+        PDFs, videos and other objects: link to them, or replace them with an image.
+      </p>
+
+      <h2>Method 7: clean up and save as a new file</h2>
+      <ul>
+        <li>Accept or reject all tracked changes, and delete comments you no longer need.</li>
+        <li>
+          Run <strong>File → Info → Check for Issues → Inspect Document</strong> to remove hidden data such as
+          personal information, invisible content and hidden text.
+        </li>
+        <li>Then use <strong>File → Save As</strong> with a new name to write a clean copy.</li>
+      </ul>
+      <p>
+        These usually save less than fixing the pictures, since tracked changes are mostly text. But they matter for
+        documents that have been edited for months, and removing hidden data is good practice before sending anything
+        outside your organisation.
+      </p>
+
+      <h2>Which method to use</h2>
+      <div className="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Situation</th>
+              <th>Fastest fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Need it smaller right now</td><td>Method 1 (browser), 30 seconds</td></tr>
+            <tr><td>You'll keep editing the document</td><td>Methods 2 and 3 inside Word</td></tr>
+            <tr><td>Building a new document with photos</td><td>Method 4: compress photos first</td></tr>
+            <tr><td>Media folder is small but the file is big</td><td>Methods 5–7</td></tr>
+            <tr><td>The file is a PDF, not a .docx</td><td>See <Link to="/blog/pdf-compression-guide">reducing PDF size on any device</Link></td></tr>
+          </tbody>
+        </table>
       </div>
-    </div>
+
+      <h2>FAQ</h2>
+      <h3>Will compressing change my formatting?</h3>
+      <p>
+        No. Only the pictures are re-compressed. Text, fonts, tables, headers and page layout stay exactly as they were.
+      </p>
+      <h3>Can I compress a .doc file (older Word format)?</h3>
+      <p>
+        The old .doc format isn't a ZIP, so pictures inside can't be re-compressed the same way. Open it in Word and
+        save it as .docx first. That alone often makes it smaller, and then Method 1 works.
+      </p>
+      <h3>Will the compressed file open in Google Docs?</h3>
+      <p>Yes. It's still a standard .docx file.</p>
+      <h3>Does the same work for PowerPoint and Excel?</h3>
+      <p>
+        Yes. .pptx and .xlsx files are ZIP archives too, with pictures in <code>ppt/media</code> and{' '}
+        <code>xl/media</code>. The browser compressor handles them the same way.
+      </p>
+    </>
   );
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <BlogPost title="How to Reduce Word Document File Size — 7 Methods That Actually Work" content={content} category="Tutorial" readTime="9 min read" date="2026-05-05" author="CompressNFly Team" />
+      <BlogPost
+        ctaHref="/"
+        ctaLabel="Compress a Word file now"
+        title="How to Reduce Word Document File Size: 7 Methods (With Real Results)"
+        content={content}
+        category="Tutorial"
+        readTime="8 min read"
+        date="2026-05-05"
+        updated="2026-11-02"
+        author="Compressnfly Team"
+      />
     </div>
   );
 };
+
 export default ReduceWordDocSize;

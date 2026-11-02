@@ -257,7 +257,7 @@ export const converterPages: ToolPageConfig[] = [
     faqs: [
       { q: "Will converting JPG to PNG improve quality?", a: "No. It preserves the image exactly as it is now, but can't bring back detail lost when the JPG was created." },
       { q: "Will the background become transparent?", a: "No. The PNG looks identical to the JPG. Transparency has to be added in an editor." },
-      { q: "Is it free?", a: "Yes — no limits, no watermark, nothing uploaded." },
+      { q: "Is it free?", a: "Yes — no daily limit, no watermark, nothing uploaded." },
     ],
     related: ["/png-to-jpg", "/compress-png", "/heic-to-png"],
   },

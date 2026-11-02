@@ -7,41 +7,17 @@ const Blog = () => {
   const blogPosts = [
     { id: 12, title: "How to Get a Photo Under 20 KB, 50 KB or 100 KB for Online Forms", excerpt: "What each size limit looks like on a real phone photo, how to keep tiny photos sharp, and fixes for the upload errors forms throw at you.", date: "2026-11-02", category: "Tutorial", readTime: "7 min read", link: "/blog/photo-size-for-online-forms" },
     { id: 13, title: "HEIC vs JPG: Why Your iPhone Photos Won't Open (and 4 Ways to Fix It)", excerpt: "What HEIC is, where it breaks, and what happened when we converted real iPhone photos to JPG and PNG.", date: "2026-11-02", category: "Guide", readTime: "6 min read", link: "/blog/heic-vs-jpg" },
-        { id: 11, title: "How to Compress a PDF for Email — Fit Gmail's 25MB Limit", excerpt: "PDF too big to email? Learn why attachments bounce even under 25MB, and compress yours to fit Gmail and Outlook in seconds — free, no upload.", date: "2026-08-30", category: "Tutorial", readTime: "6 min read", link: "/blog/compress-pdf-for-email" },
-    {
-      id: 1,
-      title: "How to Reduce PDF File Size for Free: The Complete 2024 Guide",
-      excerpt: "Learn the easiest way to compress PDF files online for free. Step-by-step guide with tips for students and professionals.",
-      date: "2026-01-20",
-      category: "Tutorial",
-      readTime: "8 min read",
-      link: "/blog/pdf-compression-guide"
-    },
+    { id: 11, title: "How to Compress a PDF for Email — Fit Gmail's 25MB Limit", excerpt: "PDF too big to email? Learn why attachments bounce even under 25MB, and compress yours to fit Gmail and Outlook in seconds — free, no upload.", date: "2026-08-30", category: "Tutorial", readTime: "6 min read", link: "/blog/compress-pdf-for-email" },
+    { id: 1, title: "How to Reduce PDF File Size on Windows, Mac, iPhone and Android", excerpt: "What each device can and can't do built-in, where Mac Preview falls short, and the method that works everywhere.", date: "2026-11-02", category: "Tutorial", readTime: "7 min read", link: "/blog/pdf-compression-guide" },
     { id: 2, title: "File Compression Explained: What Shrinks, What Doesn't, and Why", excerpt: "A CSV shrank 84%. A ZIP of photos shrank 0.2%. Lossless vs lossy compression, tested on real files, with the right method for each file type.", date: "2026-11-02", category: "Guide", readTime: "7 min read", link: "/blog/file-compression-guide" },
     { id: 3, title: "File Size Limits for Email, WhatsApp and Upload Forms", excerpt: "Gmail, Outlook, Yahoo and WhatsApp limits, why a 20 MB file can bounce from a 20 MB inbox, and the target sizes that work.", date: "2026-11-02", category: "Guide", readTime: "7 min read", link: "/blog/file-size-importance" },
-    {
-      id: 4,
-      title: "Video Compression Best Practices",
-      excerpt: "Discover the latest techniques for compressing video files without losing quality.",
-      date: "2026-04-05",
-      category: "Tutorial",
-      readTime: "7 min read",
-      link: "/blog/video-compression-guide"
-    },
-    {
-      id: 5,
-      title: "Audio Compression Formats Explained",
-      excerpt: "A comprehensive comparison of different audio compression formats and their use cases.",
-      date: "2026-05-01",
-      category: "Guide",
-      readTime: "4 min read",
-      link: "/blog/audio-compression-guide"
-    },
+    { id: 4, title: "How to Compress a Video Without Ruining It: Settings That Actually Work", excerpt: "One formula predicts every video's size. Plus real re-encoding results, and HandBrake settings to fit any limit.", date: "2026-11-02", category: "Tutorial", readTime: "8 min read", link: "/blog/video-compression-guide" },
+    { id: 5, title: "Audio Formats Explained: MP3 vs AAC vs FLAC vs WAV (With Exact File Sizes)", excerpt: "Exact megabytes per minute for every common format, and which one to use for music, podcasts and voice notes.", date: "2026-11-02", category: "Guide", readTime: "7 min read", link: "/blog/audio-compression-guide" },
     { id: 6, title: "How to Compress a PDF Without Losing Quality (We Tested 3 Real PDFs)", excerpt: "A text PDF, a photo report and a scanned contract, compressed and measured. What stays sharp, and how small a scan can get and still be readable.", date: "2026-11-02", category: "Tutorial", readTime: "8 min read", link: "/blog/compress-pdf-without-losing-quality" },
     { id: 7, title: "How to Compress Images Without Losing Quality: Real Results From 3 Phone Photos", excerpt: "Three phone photos, every setting, exact sizes and dimensions — and which size to use for email, websites, printing and forms.", date: "2026-11-02", category: "Tutorial", readTime: "8 min read", link: "/blog/compress-images-online" },
-    { id: 8, title: "How to Reduce Word Document File Size — 7 Methods That Actually Work", excerpt: "A 10-page Word document should be 100KB, not 80MB. Learn the 7 methods to find and fix the hidden bloat — including the 30-second fix that requires no software at all.", date: "2026-05-05", category: "Tutorial", readTime: "9 min read", link: "/blog/reduce-word-document-file-size" },
-    { id: 9, title: "Why Is My File So Large? (And How to Fix It in 30 Seconds)", excerpt: "Your document looks normal but is 75MB. Your photo is 14MB. Your PDF won't attach. This guide exposes the hidden causes and gives you the instant fix for every file type.", date: "2026-05-05", category: "Guide", readTime: "8 min read", link: "/blog/why-is-my-file-so-large" },
-    { id: 10, title: "Compress Files Online Free — No Signup, No Upload, No Limits (2026)", excerpt: "Compress PDFs, images, Word docs, Excel files and ZIPs — free, no account, no file uploads to any server, and no software to install.", date: "2026-05-05", category: "Guide", readTime: "10 min read", link: "/blog/compress-files-online-free" },
+    { id: 8, title: "How to Reduce Word Document File Size: 7 Methods (With Real Results)", excerpt: "A 10-second check shows what's bloating your .docx. Then 7 fixes, including the one that took a 9.46 MB report to 384 KB.", date: "2026-11-02", category: "Tutorial", readTime: "8 min read", link: "/blog/reduce-word-document-file-size" },
+    { id: 9, title: "Why Is My File So Large? How to Find the Cause (and Fix It)", excerpt: "How big files should be, the 10-second check for bloated Word files, and the real causes behind huge PDFs and photos.", date: "2026-11-02", category: "Guide", readTime: "8 min read", link: "/blog/why-is-my-file-so-large" },
+    { id: 10, title: "Compress Files Online Free, With No Signup and No Upload", excerpt: "Real before-and-after results for photos, PDFs, Word files, CSVs and ZIPs, all compressed in your browser.", date: "2026-11-02", category: "Guide", readTime: "7 min read", link: "/blog/compress-files-online-free" },
   ];
     return (
     <div className="min-h-screen bg-background">

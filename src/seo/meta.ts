@@ -62,7 +62,7 @@ export const pages: Record<string, PageMeta> = {
       "PDF too big to email? Learn why attachments bounce even under 25MB, and compress yours to fit Gmail and Outlook in seconds — free, no upload.",
     type: "article",
     datePublished: "2026-08-30",
-    dateModified: "2026-08-30",
+    dateModified: "2026-11-02",
     priority: 0.7,
   },
   "/blog/compress-pdf-without-losing-quality": {
@@ -84,39 +84,39 @@ export const pages: Record<string, PageMeta> = {
     priority: 0.7,
   },
   "/blog/reduce-word-document-file-size": {
-    title: "How to Reduce Word Document File Size — 7 Methods That Work",
+    title: "How to Reduce Word Document File Size: 7 Methods (Real Results)",
     description:
-      "A 10-page Word file should be 100KB, not 80MB. Find and fix the hidden bloat with 7 methods, including a 30-second fix with no software.",
+      "Find what's bloating your .docx in 10 seconds, then fix it. A 9.46 MB report shrank to 384 KB with formatting untouched. 7 methods, tested.",
     type: "article",
     datePublished: "2026-05-05",
-    dateModified: "2026-08-29",
+    dateModified: "2026-11-02",
     priority: 0.7,
   },
   "/blog/why-is-my-file-so-large": {
-    title: "Why Is My File So Large? (And How to Fix It in 30 Seconds)",
+    title: "Why Is My File So Large? How to Find the Cause and Fix It",
     description:
-      "Your document looks normal but is 75MB? The hidden causes of oversized PDFs, photos and documents — and the quick fix for each file type.",
+      "How big files should be, a 10-second check that reveals what's bloating Word and PowerPoint files, and the real causes behind huge PDFs and photos.",
     type: "article",
     datePublished: "2026-05-05",
-    dateModified: "2026-08-29",
+    dateModified: "2026-11-02",
     priority: 0.7,
   },
   "/blog/compress-files-online-free": {
     title: "Compress Files Online Free — No Signup, No Upload",
     description:
-      "Compress PDFs, images, documents and ZIPs for free with no account and no server uploads. Here's how browser-based compression works.",
+      "Real results for every file type: photos, PDFs, Word files, CSVs and ZIPs. Free, no account, and files are compressed in your browser, never uploaded.",
     type: "article",
     datePublished: "2026-05-05",
-    dateModified: "2026-08-29",
+    dateModified: "2026-11-02",
     priority: 0.7,
   },
   "/blog/pdf-compression-guide": {
-    title: "How to Reduce PDF File Size for Free: Step-by-Step Guide",
+    title: "How to Reduce PDF File Size on Windows, Mac, iPhone and Android",
     description:
-      "The easiest way to compress PDF files online for free, with step-by-step instructions and tips for students and professionals.",
+      "What's built into each device for shrinking PDFs (and what isn't), where Mac Preview falls short, and the method that works everywhere.",
     type: "article",
     datePublished: "2026-01-20",
-    dateModified: "2026-01-20",
+    dateModified: "2026-11-02",
     priority: 0.6,
   },
   "/blog/file-compression-guide": {
@@ -138,21 +138,21 @@ export const pages: Record<string, PageMeta> = {
     priority: 0.5,
   },
   "/blog/video-compression-guide": {
-    title: "Video Compression Best Practices",
+    title: "How to Compress a Video Without Ruining It (Settings That Work)",
     description:
-      "Techniques for compressing video files without visible quality loss: codecs, bitrate, resolution and the settings that matter.",
+      "The formula that predicts video file size, real results from re-encoding a clip at different settings, and HandBrake steps to fit any size limit.",
     type: "article",
     datePublished: "2026-04-05",
-    dateModified: "2026-04-05",
+    dateModified: "2026-11-02",
     priority: 0.5,
   },
   "/blog/audio-compression-guide": {
-    title: "Audio Compression Formats Explained (MP3, AAC, FLAC & More)",
+    title: "Audio Formats Explained: MP3 vs AAC vs FLAC vs WAV (Exact Sizes)",
     description:
-      "A plain-English comparison of audio compression formats and when to use each one for music, podcasts and voice recordings.",
+      "Exact file sizes per minute for WAV, FLAC, MP3, AAC and Opus, which format to use for music, podcasts and voice, and mistakes to avoid.",
     type: "article",
     datePublished: "2026-05-01",
-    dateModified: "2026-05-01",
+    dateModified: "2026-11-02",
     priority: 0.5,
   },
   "/about": {

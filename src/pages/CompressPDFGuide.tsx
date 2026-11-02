@@ -33,12 +33,13 @@ const CompressPDFGuide = () => {
       <ul>
         <li>
           <strong>Scanned pages.</strong> A scanner or scanning app saves every page as a photo, often at 300 DPI. Our
-          8-page scanned contract weighed <strong>9.49 MB</strong>, more than a megabyte per page, even though it's
-          just black text on white paper.
+          8-page test contract, built the way a scanning app saves pages (each page a 300 DPI color JPG), weighed{' '}
+          <strong>9.49 MB</strong>, more than a megabyte per page, even though it's just dark text on white paper.
         </li>
         <li>
           <strong>Photos pasted into documents.</strong> Drop phone photos into a Word report and export it, and the
-          photos come along at close to full resolution. Our 9-page inspection report with six photos was
+          photos come along at close to full resolution. Our 9-page inspection report with six photos (three phone
+          pictures, each used twice) was
           <strong> 2.31 MB</strong> as a PDF.
         </li>
         <li>
