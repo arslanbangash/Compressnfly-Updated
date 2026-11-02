@@ -12,6 +12,16 @@ export interface ToolSection {
   list?: string[];
 }
 
+/** Results from running the tool on real files, shown as a table on the page. */
+export interface ToolTest {
+  heading: string;
+  intro: string;
+  columns: string[];
+  rows: string[][];
+  /** Short conclusions drawn from the results */
+  notes?: string[];
+}
+
 export interface ToolPageConfig {
   path: string;
   /** Short label for grids and links */
@@ -27,6 +37,8 @@ export interface ToolPageConfig {
   /** Converter settings (convert / PDF pages) — use this OR `tool` */
   converter?: ConverterToolProps;
   sections: ToolSection[];
+  /** Real test results — rendered after the first section */
+  test?: ToolTest;
   faqs: { q: string; a: string }[];
   related: string[];
   /** Optional source link shown under the page content */
@@ -61,7 +73,7 @@ export const toolPages: ToolPageConfig[] = [
       {
         heading: "What a 20KB image looks like",
         paragraphs: [
-          "At 20KB a typical photo ends up roughly 400–600 pixels on its longest side. That's plenty for a face photo or a signature on an application form, and still looks sharp on screen. A busy, detailed photo will come out a little smaller in pixels than a plain one with a clean background, because detail takes more bytes to store.",
+          "At 20KB a full phone photo ends up about 280×370 pixels (see our test below). That's plenty for a face photo or a signature on an application form, and still looks clean at the size forms display it. Cropping first puts those pixels where they matter.",
         ],
       },
       {
@@ -74,6 +86,45 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos to 20 KB",
+      "intro": "We ran three real 12-megapixel phone photos through this page in Chrome on an ordinary laptop. Here's exactly what came out:",
+      "columns": [
+        "Photo",
+        "Original",
+        "Result",
+        "Dimensions",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "4.16 MB",
+          "19.9 KB",
+          "277×370",
+          "0.3 s"
+        ],
+        [
+          "iPhone 6 Plus photo",
+          "3.51 MB",
+          "19.8 KB",
+          "277×370",
+          "0.3 s"
+        ],
+        [
+          "Galaxy S7 Edge photo",
+          "3.97 MB",
+          "19.2 KB",
+          "370×277",
+          "0.3 s"
+        ]
+      ],
+      "notes": [
+        "All three phones landed on the same 277×370 pixels, so for a full photo that's what 20 KB buys. At the size a form shows it, the picture was perfectly clear. For comparison, 15 KB gave 240×320 and 10 KB gave 196×261.",
+        "Crop to your head and shoulders first and those same pixels go to your face instead of the background.",
+        "One result was 20,418 bytes: under 20 KB the way Windows counts (1 KB = 1,024 bytes), but over 20,000 bytes. If a form rejects it, set a custom target of 18 KB."
+      ]
+    },
     faqs: [
       {
         q: "Will my photo be blurry at 20KB?",
@@ -116,7 +167,7 @@ export const toolPages: ToolPageConfig[] = [
       {
         heading: "How much detail fits in 50KB",
         paragraphs: [
-          "A typical photo at 50KB comes out around 600–900 pixels on its longest side at high JPG quality. That's more than enough for a passport-style photo, an ID card scan viewed on screen, or a profile picture.",
+          "A full phone photo at 50KB comes out about 440×580 pixels. That's more than enough for a passport-style photo, an ID card scan viewed on screen, or a profile picture, and more still if you crop first.",
           "The tool works this out for you: it shrinks the dimensions just enough that the image can be saved at high quality and still stay under 50KB, instead of keeping the full camera size and crushing the quality.",
         ],
       },
@@ -129,6 +180,44 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos to 50 KB",
+      "intro": "We ran three real 12-megapixel phone photos through this page in Chrome on an ordinary laptop. Here's exactly what came out:",
+      "columns": [
+        "Photo",
+        "Original",
+        "Result",
+        "Dimensions",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "4.16 MB",
+          "48.7 KB",
+          "438×584",
+          "0.4 s"
+        ],
+        [
+          "iPhone 6 Plus photo",
+          "3.51 MB",
+          "49.6 KB",
+          "438×584",
+          "0.4 s"
+        ],
+        [
+          "Galaxy S7 Edge photo",
+          "3.97 MB",
+          "47.8 KB",
+          "584×438",
+          "0.3 s"
+        ]
+      ],
+      "notes": [
+        "50 KB gives a full photo about 440×580 pixels, comfortably sharp for any form or profile picture. Nearby sizes: 40 KB → 392×523, 60 KB → 480×640.",
+        "The iPhone result was 50,798 bytes: under 50 KB in 1,024-byte kilobytes, over 50,000 bytes. If a portal is strict, use 45 KB."
+      ]
+    },
     faqs: [
       {
         q: "How do I reduce a photo from 3MB to 50KB?",
@@ -171,7 +260,7 @@ export const toolPages: ToolPageConfig[] = [
       {
         heading: "What resolution you get at 100KB",
         paragraphs: [
-          "Most photos compressed to 100KB end up around 900–1,300 pixels on the longest side at high quality. Simple images — documents, screenshots with large plain areas, photos against a clean wall — keep even more pixels.",
+          "A full phone photo compressed to 100KB ends up about 620×830 pixels, which looks like a normal photo on a laptop screen. If an image is simple enough to fit with room to spare, the tool uses the extra space to keep more pixels.",
           "After compressing, the result card shows the exact file size and pixel dimensions, so you can confirm it meets the form's rules before you upload.",
         ],
       },
@@ -182,6 +271,44 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos to 100 KB",
+      "intro": "We ran three real 12-megapixel phone photos through this page in Chrome on an ordinary laptop. Here's exactly what came out:",
+      "columns": [
+        "Photo",
+        "Original",
+        "Result",
+        "Dimensions",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "4.16 MB",
+          "96.8 KB",
+          "620×826",
+          "0.6 s"
+        ],
+        [
+          "iPhone 6 Plus photo",
+          "3.51 MB",
+          "99.0 KB",
+          "620×826",
+          "0.5 s"
+        ],
+        [
+          "Galaxy S7 Edge photo",
+          "3.97 MB",
+          "95.5 KB",
+          "826×620",
+          "0.3 s"
+        ]
+      ],
+      "notes": [
+        "100 KB keeps about 620×830 pixels, which looks like an ordinary photo on a laptop screen. 80 KB gave 554×739 and 150 KB gave 759×1012.",
+        "Each one took between 0.3 and 0.6 seconds, even from 4 MB originals."
+      ]
+    },
     faqs: [
       {
         q: "Can I compress an image to 100KB without losing quality?",
@@ -226,7 +353,7 @@ export const toolPages: ToolPageConfig[] = [
       {
         heading: "How sharp is a 200KB photo?",
         paragraphs: [
-          "At 200KB, a typical photo keeps roughly 1,300–1,800 pixels on its longest side at high quality — enough to fill most laptop screens. For comparison, the original from a modern phone is often 4,000 pixels wide and several megabytes.",
+          "At 200KB, a full phone photo keeps about 880×1,170 pixels, enough to fill a phone screen sharply and look good on a laptop at normal size. For comparison, the original from a modern phone is often 4,000 pixels on its long side and several megabytes.",
         ],
       },
       {
@@ -236,6 +363,43 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos to 200 KB",
+      "intro": "We ran three real 12-megapixel phone photos through this page in Chrome on an ordinary laptop. Here's exactly what came out:",
+      "columns": [
+        "Photo",
+        "Original",
+        "Result",
+        "Dimensions",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "4.16 MB",
+          "196 KB",
+          "876×1168",
+          "0.5 s"
+        ],
+        [
+          "iPhone 6 Plus photo",
+          "3.51 MB",
+          "198 KB",
+          "876×1168",
+          "0.6 s"
+        ],
+        [
+          "Galaxy S7 Edge photo",
+          "3.97 MB",
+          "183 KB",
+          "1168×876",
+          "0.4 s"
+        ]
+      ],
+      "notes": [
+        "200 KB keeps about 880×1170 pixels. That fills a phone screen sharply and looks good on a laptop at normal size, at roughly a twentieth of the original file. 250 KB gave 980×1306 and 300 KB gave 1073×1431."
+      ]
+    },
     faqs: [
       {
         q: "Should I use 100KB or 200KB for my website?",
@@ -287,6 +451,64 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: one photo, seven sizes",
+      "intro": "We took one 4.16 MB, 12-megapixel photo from a Pixel 2 and reduced it to different sizes on this page:",
+      "columns": [
+        "Target",
+        "Result",
+        "Dimensions",
+        "Saved"
+      ],
+      "rows": [
+        [
+          "10 KB",
+          "9.9 KB",
+          "196×261",
+          "99.8%"
+        ],
+        [
+          "20 KB",
+          "19.9 KB",
+          "277×370",
+          "99.5%"
+        ],
+        [
+          "50 KB",
+          "48.7 KB",
+          "438×584",
+          "98.9%"
+        ],
+        [
+          "100 KB",
+          "96.8 KB",
+          "620×826",
+          "97.7%"
+        ],
+        [
+          "200 KB",
+          "196 KB",
+          "876×1168",
+          "95.4%"
+        ],
+        [
+          "500 KB",
+          "498 KB",
+          "1386×1848",
+          "88.3%"
+        ],
+        [
+          "800 KB",
+          "776 KB",
+          "1753×2337",
+          "81.8%"
+        ]
+      ],
+      "notes": [
+        "The pattern is simple: to halve the file size you lose roughly 30% of the width and height. Photos from an iPhone 6 Plus and a Galaxy S7 Edge landed on the same dimensions at every size, so this table works as a guide for most phone photos.",
+        "Each one took between a quarter of a second and two seconds."
+      ]
+    },
     faqs: [
       {
         q: "What's the smallest size I can choose?",
@@ -341,6 +563,46 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos, four levels",
+      "intro": "Here's what each level did to three real 12-megapixel phone photos:",
+      "columns": [
+        "Level",
+        "Pixel 2 (4.16 MB)",
+        "iPhone 6 Plus (3.51 MB)",
+        "Galaxy S7 Edge (3.97 MB)"
+      ],
+      "rows": [
+        [
+          "High Quality",
+          "1.11 MB · 2599×3465",
+          "1.06 MB · 2208×2945",
+          "986 KB · 3648×2736"
+        ],
+        [
+          "Web Optimized",
+          "305 KB · 1368×1824",
+          "353 KB · 1299×1732",
+          "214 KB · 1920×1440"
+        ],
+        [
+          "Balanced",
+          "117 KB · 912×1216",
+          "153 KB · 866×1155",
+          "78 KB · 1280×960"
+        ],
+        [
+          "Small Size",
+          "45 KB · 600×800",
+          "50 KB · 541×722",
+          "25 KB · 800×600"
+        ]
+      ],
+      "notes": [
+        "Even High Quality cut each photo by 70–76% with no difference we could see on screen. Web Optimized is the best default for sharing: still sharp at full screen width, about 13× lighter.",
+        "Each photo took between half a second and 1.6 seconds."
+      ]
+    },
     faqs: [
       {
         q: "Is JPG compression lossy?",
@@ -379,7 +641,7 @@ export const toolPages: ToolPageConfig[] = [
       {
         heading: "How PNGs get smaller here",
         paragraphs: [
-          "PNG files shrink mainly by reducing their pixel dimensions, since PNG doesn't have a quality slider like JPG. Screenshots from high-resolution screens are often twice the size they need to be for sharing, so scaling them to a normal width cuts the file a lot without making text unreadable.",
+          "PNG is lossless, so there's no quality slider like JPG. Re-saving with better packing helps a little (High Quality saved 18–24% on our screenshots at full size), but the big savings come from reducing pixel dimensions. Screenshots from high-resolution screens are often twice the size they need to be for sharing, so scaling them to a normal width cuts the file a lot without making text unreadable.",
         ],
       },
       {
@@ -391,6 +653,45 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: real screenshots and a photo saved as PNG",
+      "intro": "We took two Retina screenshots (2880×1800) of web pages, one mostly text and one with large coloured areas, plus a 12-megapixel phone photo saved as PNG:",
+      "columns": [
+        "File",
+        "Original",
+        "High Quality",
+        "Web Optimized",
+        "Balanced"
+      ],
+      "rows": [
+        [
+          "Text-heavy screenshot",
+          "332 KB",
+          "252 KB · 2880×1800",
+          "212 KB · 1920×1200",
+          "112 KB · 1280×800"
+        ],
+        [
+          "Colourful screenshot",
+          "488 KB",
+          "398 KB · 2880×1800",
+          "196 KB · 1920×1200",
+          "113 KB · 1280×800"
+        ],
+        [
+          "Phone photo as PNG",
+          "20.94 MB",
+          "—",
+          "551 KB · 859×1145",
+          "233 KB · 570×763"
+        ]
+      ],
+      "notes": [
+        "High Quality kept full resolution and still saved 18–24%. Web Optimized is ideal for screenshots: 1920×1200 keeps text perfectly readable.",
+        "The photo shows why photos shouldn't be PNG: 20.94 MB, and even compressed it had to shrink to 859 pixels wide. Simply converting it to JPG gave a 3.46 MB file at full size. Use PNG to JPG for photos.",
+        "But for the text screenshot, JPG was 11% bigger than the PNG. For text and sharp edges, PNG is the right format."
+      ]
+    },
     faqs: [
       {
         q: "Will transparency be kept?",
@@ -443,6 +744,40 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three very different PDFs",
+      "intro": "We compressed a text-only handbook, a Word report with photos, and an 8-page contract saved the way scanning apps save pages (each page a 300 DPI image):",
+      "columns": [
+        "PDF",
+        "Original",
+        "Balanced (lossless)",
+        "Small Size"
+      ],
+      "rows": [
+        [
+          "Text handbook, 19 pages",
+          "100 KB",
+          "64 KB (−36%)",
+          "64 KB (images would be bigger)"
+        ],
+        [
+          "Report with photos, 9 pages",
+          "2.31 MB",
+          "2.30 MB",
+          "625 KB (−74%)"
+        ],
+        [
+          "Scanned contract, 8 pages",
+          "9.49 MB",
+          "9.48 MB",
+          "804 KB (−92%)"
+        ]
+      ],
+      "notes": [
+        "Balanced keeps text selectable and helps text PDFs, but barely touches scans and photos, because the images are the weight. Small Size re-renders pages as images, which is what shrinks scans: the 8-page scan took about 7 seconds.",
+        "Full details, including how small a scan can go and still be readable, are in our PDF compression test."
+      ]
+    },
     faqs: [
       {
         q: "Why did my PDF only get a little smaller?",
@@ -480,13 +815,13 @@ export const toolPages: ToolPageConfig[] = [
         list: [
           "First it tries a lossless clean-up. If that's enough, your PDF keeps selectable, searchable text.",
           "If not, it re-renders each page as an image, starting at high resolution and stepping down only until the file fits.",
-          "It stops at the first setting that's under 1MB, so you get the best quality that meets the limit.",
+          "If the result has plenty of room to spare, it tries once more at a higher resolution, so you get the sharpest version that still fits.",
         ],
       },
       {
         heading: "What fits in 1MB",
         paragraphs: [
-          "A typed document of dozens of pages usually fits easily without any loss. For scans, 1MB is typically enough for roughly 5–15 pages at good on-screen readability, depending on how dense the pages are. Long scanned documents may need to be split into parts.",
+          "A typed document of dozens of pages usually fits easily without any loss. For scans, our 8-page test document fit in 894KB and stayed sharp, and text remains readable down to about 40KB per page, so 1MB can hold around 20–25 scanned pages if you accept slightly softer text. Longer scans may need to be split into parts.",
         ],
       },
       {
@@ -498,6 +833,40 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three PDFs to 1 MB",
+      "intro": "Here's what this page produced from three real test PDFs:",
+      "columns": [
+        "PDF",
+        "Original",
+        "Result",
+        "Text selectable?"
+      ],
+      "rows": [
+        [
+          "Text handbook, 19 pages",
+          "100 KB",
+          "100 KB (already under 1 MB, left as is)",
+          "Yes"
+        ],
+        [
+          "Report with photos, 9 pages",
+          "2.31 MB",
+          "948 KB",
+          "No (pages as images)"
+        ],
+        [
+          "Scanned contract, 8 pages",
+          "9.49 MB",
+          "894 KB (~112 KB per page)",
+          "No, but scans never were"
+        ]
+      ],
+      "notes": [
+        "The 8-page scan stayed sharp on screen at 1 MB. In our tests, scanned pages stay comfortably readable down to about 40 KB per page, so 1 MB can hold roughly 20–25 scanned pages if you accept slightly softer text.",
+        "Files already under the target are returned unchanged, so you never lose quality for nothing."
+      ]
+    },
     faqs: [
       {
         q: "Will my text still be readable?",
@@ -547,6 +916,34 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: PDFs to 500 KB and 300 KB",
+      "intro": "Results from two image-heavy test PDFs:",
+      "columns": [
+        "PDF",
+        "Original",
+        "500 KB target",
+        "300 KB target"
+      ],
+      "rows": [
+        [
+          "Scanned contract, 8 pages",
+          "9.49 MB",
+          "346 KB (~43 KB/page)",
+          "252 KB (~32 KB/page)"
+        ],
+        [
+          "Report with photos, 9 pages",
+          "2.31 MB",
+          "469 KB",
+          "—"
+        ]
+      ],
+      "notes": [
+        "At about 43 KB per page, the scanned text was clearly readable on screen with slight softness when zoomed in. At 32 KB per page it was still readable but noticeably softer.",
+        "A single scanned page at 500 KB keeps far more detail than that, so one certificate per file is the best way to keep stamps and signatures crisp."
+      ]
+    },
     faqs: [
       {
         q: "Can a multi-page PDF fit in 500KB?",
@@ -600,6 +997,46 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: one phone photo at common form limits",
+      "intro": "We reduced a 4.16 MB photo from a Pixel 2 to the limits recruitment forms use most:",
+      "columns": [
+        "Form limit",
+        "Result",
+        "Dimensions",
+        "Exact bytes"
+      ],
+      "rows": [
+        [
+          "20 KB",
+          "19.9 KB",
+          "277×370",
+          "20,418"
+        ],
+        [
+          "30 KB",
+          "29.3 KB",
+          "339×453",
+          "30,028"
+        ],
+        [
+          "50 KB",
+          "48.7 KB",
+          "438×584",
+          "49,910"
+        ],
+        [
+          "100 KB",
+          "96.8 KB",
+          "620×826",
+          "99,166"
+        ]
+      ],
+      "notes": [
+        "Look at the last column. Two results are slightly over 20,000 and 30,000 bytes, which is fine if the portal counts 1 KB as 1,024 bytes but gets rejected if it counts 1,000. If your upload fails with a size error, type a custom size about 10% lower (18, 27, 45 or 90) and try again.",
+        "These dimensions are for the whole photo. Crop to head and shoulders before compressing and the same bytes give a much sharper face."
+      ]
+    },
     faqs: [
       {
         q: "What size should my FPSC, PPSC or NTS photo be?",
@@ -658,6 +1095,40 @@ export const toolPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: phone photos at 900 KB and 2,800 KB",
+      "intro": "We ran three 12-megapixel phone photos through this page at the two main presets:",
+      "columns": [
+        "Photo",
+        "Original",
+        "900 KB preset",
+        "2,800 KB preset"
+      ],
+      "rows": [
+        [
+          "Pixel 2",
+          "4.16 MB",
+          "897 KB · 1859×2479",
+          "2.67 MB · full size"
+        ],
+        [
+          "iPhone 6 Plus",
+          "3.51 MB",
+          "884 KB · 1859×2479",
+          "2.36 MB · full size"
+        ],
+        [
+          "Galaxy S7 Edge",
+          "3.97 MB",
+          "817 KB · 2479×1859",
+          "2.52 MB · full size"
+        ]
+      ],
+      "notes": [
+        "At 900 KB, a photographed document page keeps about 1,860×2,480 pixels, plenty to read small print and stamps. At 2,800 KB, all three photos kept their full camera resolution and only the JPG quality was trimmed, so fingerprints stay as detailed as the original photo.",
+        "Each file took between half a second and four seconds."
+      ]
+    },
     faqs: [
       {
         q: "Does this tool submit anything to DGIP?",

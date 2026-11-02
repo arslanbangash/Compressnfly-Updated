@@ -178,9 +178,10 @@ const CompressImagesGuide = () => {
         </li>
         <li>
           <strong>PNG</strong> is lossless and suits screenshots, logos and anything with sharp edges or transparency.
-          For photos it's a poor fit: our 2400×1600 PNG photo was 229 KB, and simply{' '}
-          <Link to="/png-to-jpg">converting it to JPG</Link> made it 63 KB at full size. Compressing it as PNG with
-          <em> Balanced</em> got it to 78 KB, but only by shrinking it to 1280×853.
+          For photos it's a poor fit: the Pixel photo saved as PNG was 20.94 MB, and simply{' '}
+          <Link to="/png-to-jpg">converting it back to JPG</Link> made it 3.46 MB at full size. Compressing it as PNG
+          with <em>Web Optimized</em> got it to 551 KB, but only by shrinking it to 859×1145. On the other hand, a
+          screenshot of a text-heavy web page came out 11% <em>bigger</em> as JPG, because PNG handles sharp text better.
         </li>
         <li>
           <strong>WebP</strong> makes smaller files than JPG at the same quality and works in all modern browsers, which

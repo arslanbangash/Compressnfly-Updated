@@ -254,9 +254,72 @@ export async function getPdfPageCount(file: File): Promise<number> {
   return (await loadPdf(file)).getPageCount();
 }
 
+type PdfLib = typeof import('pdf-lib');
+type PdfPage = import('pdf-lib').PDFPage;
+
+/**
+ * Some PDF writers (LibreOffice, for example) put one shared list of images on
+ * the page tree, so every page "owns" every image. Copying a single page would
+ * then drag all of the document's images along. This gives each page its own
+ * resource list containing only the images its content actually draws, and
+ * returns a function that puts the original back. If anything about a page
+ * looks unusual, that page is left untouched.
+ */
+function pruneUnusedImages(lib: PdfLib, pages: PdfPage[]): () => void {
+  const { PDFName, PDFDict, PDFArray, PDFRawStream, decodePDFRawStream } = lib;
+  const RESOURCES = PDFName.of('Resources');
+  const XOBJECT = PDFName.of('XObject');
+  const restores: (() => void)[] = [];
+
+  for (const page of pages) {
+    try {
+      const node = page.node;
+      const ctx = node.context;
+      const resources = node.Resources();
+      const xobjects = resources?.lookupMaybe(XOBJECT, PDFDict);
+      if (!resources || !xobjects || xobjects.keys().length < 2) continue;
+
+      // Collect the content streams that draw this page.
+      const contents = node.Contents();
+      const streams: unknown[] = [];
+      if (contents instanceof PDFArray) {
+        for (let i = 0; i < contents.size(); i++) streams.push(contents.lookup(i));
+      } else if (contents) {
+        streams.push(contents);
+      }
+      if (!streams.length || !streams.every((st) => st instanceof PDFRawStream)) continue;
+
+      const used = new Set<string>();
+      for (const st of streams) {
+        const bytes = decodePDFRawStream(st as import('pdf-lib').PDFRawStream).decode();
+        let text = '';
+        for (let i = 0; i < bytes.length; i += 0x8000) text += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+        for (const m of text.matchAll(/\/([^\s/[\]()<>{}%]+)\s+Do\b/g)) used.add('/' + m[1]);
+      }
+
+      const kept = PDFDict.withContext(ctx);
+      for (const key of xobjects.keys()) {
+        if (used.has(key.asString())) kept.set(key, xobjects.get(key)!);
+      }
+      // Every image the page draws must be accounted for, or we leave it alone.
+      if (kept.keys().length !== used.size || kept.keys().length === xobjects.keys().length) continue;
+
+      const pruned = resources.clone(ctx);
+      pruned.set(XOBJECT, kept);
+      const original = node.get(RESOURCES);
+      node.set(RESOURCES, pruned);
+      restores.push(() => (original ? node.set(RESOURCES, original) : node.delete(RESOURCES)));
+    } catch {
+      // Unreadable content stream: keep the page's resources as they are.
+    }
+  }
+  return () => restores.forEach((restore) => restore());
+}
+
 /** ranges = null → one PDF per page. */
 export async function splitPdf(file: File, ranges: string | null): Promise<ConvertedFile[]> {
-  const { PDFDocument } = await import('pdf-lib');
+  const lib = await import('pdf-lib');
+  const { PDFDocument } = lib;
   const src = await loadPdf(file);
   const count = src.getPageCount();
   const groups = ranges === null ? src.getPageIndices().map((i) => [i + 1]) : parseRanges(ranges, count);
@@ -264,7 +327,13 @@ export async function splitPdf(file: File, ranges: string | null): Promise<Conve
   const out: ConvertedFile[] = [];
   for (const group of groups) {
     const doc = await PDFDocument.create();
-    const pages = await doc.copyPages(src, group.map((n) => n - 1));
+    const restore = pruneUnusedImages(lib, group.map((n) => src.getPage(n - 1)));
+    let pages;
+    try {
+      pages = await doc.copyPages(src, group.map((n) => n - 1));
+    } finally {
+      restore();
+    }
     pages.forEach((p) => doc.addPage(p));
     const bytes = await doc.save({ useObjectStreams: true });
     const label = group.length === 1 ? `page-${group[0]}` : `pages-${group[0]}-${group[group.length - 1]}`;

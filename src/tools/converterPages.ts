@@ -44,6 +44,37 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: two real iPhone photos",
+      "intro": "We converted two 12-megapixel iPhone HEIC photos in Chrome on an ordinary laptop:",
+      "columns": [
+        "Photo",
+        "HEIC",
+        "JPG",
+        "Resolution",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Photo 1",
+          "704 KB",
+          "1.14 MB",
+          "3024×4032 (unchanged)",
+          "3.7 s"
+        ],
+        [
+          "Photo 2",
+          "1.43 MB",
+          "2.38 MB",
+          "4032×3024 (unchanged)",
+          "3.1 s"
+        ]
+      ],
+      "notes": [
+        "The JPGs are about 1.7× the size of the HEIC files. That's normal: HEIC is roughly twice as efficient, and the converter saves JPGs at high quality (92%) so nothing visible is lost.",
+        "Need a smaller file for a form? Convert here first, then use one of the compress-to-KB tools."
+      ]
+    },
     faqs: [
       { q: "Does converting HEIC to JPG reduce quality?", a: "Only very slightly. We save at high JPG quality and keep the full resolution, so the difference isn't visible at normal viewing size. The JPG will be larger than the HEIC, though — that's the trade-off for compatibility." },
       { q: "Can I convert many HEIC photos at once?", a: "Yes. Select or drop a whole batch and download them together as a ZIP file." },
@@ -86,6 +117,36 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: two real iPhone photos",
+      "intro": "The same two iPhone HEIC photos we used for HEIC to JPG, converted to PNG:",
+      "columns": [
+        "Photo",
+        "HEIC",
+        "PNG",
+        "JPG (for comparison)",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Photo 1",
+          "704 KB",
+          "8.66 MB",
+          "1.14 MB",
+          "2.9 s"
+        ],
+        [
+          "Photo 2",
+          "1.43 MB",
+          "14.14 MB",
+          "2.38 MB",
+          "4.3 s"
+        ]
+      ],
+      "notes": [
+        "PNG keeps every pixel exactly, so the files grew 10–13×. That's the right choice when you'll edit the photo further and want no extra loss, but for sharing, JPG is about a seventh of the size."
+      ]
+    },
     faqs: [
       { q: "Will the PNG have a transparent background?", a: "No — iPhone photos don't contain transparency, so the PNG looks exactly like the photo. PNG simply gives you a lossless file to work from." },
       { q: "Why is my PNG so much larger than the HEIC?", a: "HEIC uses very efficient lossy compression; PNG stores every pixel exactly. For sharing, JPG is a better fit." },
@@ -129,6 +190,36 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: two WebP photos",
+      "intro": "We converted two full-resolution WebP photos (made from phone photos, as many websites now serve them):",
+      "columns": [
+        "Photo",
+        "WebP",
+        "JPG",
+        "Resolution",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "2.63 MB",
+          "3.17 MB",
+          "3024×4032",
+          "0.9 s"
+        ],
+        [
+          "Galaxy S7 photo",
+          "2.01 MB",
+          "2.39 MB",
+          "4032×3024",
+          "0.7 s"
+        ]
+      ],
+      "notes": [
+        "The JPGs came out about 20% larger than the WebP files. WebP is the more efficient format, and the JPG is saved at high quality so the picture doesn't degrade further. In exchange, the JPG opens in every app and upload form."
+      ]
+    },
     faqs: [
       { q: "Is WebP to JPG conversion free?", a: "Yes, with no sign-up, no watermark and no limit on the number of files." },
       { q: "Will the image lose quality?", a: "We save at high JPG quality and keep the original dimensions, so it looks the same. The file may be a bit larger than the WebP." },
@@ -170,6 +261,33 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: two WebP photos",
+      "intro": "The same two WebP photos, converted to PNG:",
+      "columns": [
+        "Photo",
+        "WebP",
+        "PNG",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "2.63 MB",
+          "21.48 MB",
+          "3.1 s"
+        ],
+        [
+          "Galaxy S7 photo",
+          "2.01 MB",
+          "20.05 MB",
+          "2.5 s"
+        ]
+      ],
+      "notes": [
+        "Photos grow 8–10× as PNG. Choose PNG for graphics, logos and images that need transparency or further editing. For photos, WebP to JPG gives files a fraction of the size."
+      ]
+    },
     faqs: [
       { q: "Does WebP to PNG keep the transparent background?", a: "Yes. Transparent areas stay transparent in the PNG." },
       { q: "Is any quality lost?", a: "No further loss happens in the conversion. PNG stores exactly what the WebP image contains." },
@@ -213,6 +331,40 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: a photo and two screenshots",
+      "intro": "PNG to JPG helps a lot for some images and not at all for others. We tried three:",
+      "columns": [
+        "PNG",
+        "Original",
+        "JPG",
+        "Change"
+      ],
+      "rows": [
+        [
+          "Phone photo saved as PNG (3024×4032)",
+          "20.94 MB",
+          "3.46 MB",
+          "−83%"
+        ],
+        [
+          "Colourful web page screenshot (2880×1800)",
+          "488 KB",
+          "194 KB",
+          "−60%"
+        ],
+        [
+          "Text-heavy screenshot (2880×1800)",
+          "332 KB",
+          "368 KB",
+          "+11%"
+        ]
+      ],
+      "notes": [
+        "Photos and colourful images shrink dramatically. Screenshots of text don't: PNG handles sharp, flat text better than JPG, and the JPG came out bigger. Keep text screenshots as PNG and use Compress PNG instead.",
+        "Transparent areas become white in the JPG."
+      ]
+    },
     faqs: [
       { q: "What happens to transparent areas?", a: "They're filled with white, since JPG doesn't support transparency." },
       { q: "How much smaller will my file be?", a: "For photos, often 70–90% smaller. Screenshots and graphics shrink less and may look softer, so keep those as PNG." },
@@ -254,6 +406,39 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos",
+      "intro": "Converting real phone photos from JPG to PNG:",
+      "columns": [
+        "Photo",
+        "JPG",
+        "PNG",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2",
+          "4.16 MB",
+          "20.94 MB",
+          "2.9 s"
+        ],
+        [
+          "iPhone 6 Plus",
+          "3.51 MB",
+          "17.01 MB",
+          "2.4 s"
+        ],
+        [
+          "Galaxy S7 Edge",
+          "3.97 MB",
+          "17.55 MB",
+          "2.9 s"
+        ]
+      ],
+      "notes": [
+        "Every photo grew about 4–5×. Converting to PNG doesn't restore detail the JPG already lost; it only stops further loss when you edit and re-save. Convert when an editor or a site specifically needs PNG, not to improve quality."
+      ]
+    },
     faqs: [
       { q: "Will converting JPG to PNG improve quality?", a: "No. It preserves the image exactly as it is now, but can't bring back detail lost when the JPG was created." },
       { q: "Will the background become transparent?", a: "No. The PNG looks identical to the JPG. Transparency has to be added in an editor." },
@@ -295,10 +480,55 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: phone photos and screenshots",
+      "intro": "We converted three phone photos and two Retina screenshots to WebP at the same resolution:",
+      "columns": [
+        "Image",
+        "Original",
+        "WebP",
+        "Saved"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo (JPG)",
+          "4.16 MB",
+          "2.63 MB",
+          "37%"
+        ],
+        [
+          "iPhone 6 Plus photo (JPG)",
+          "3.51 MB",
+          "1.89 MB",
+          "46%"
+        ],
+        [
+          "Galaxy S7 Edge photo (JPG)",
+          "3.97 MB",
+          "2.01 MB",
+          "49%"
+        ],
+        [
+          "Colourful screenshot (PNG)",
+          "488 KB",
+          "90.6 KB",
+          "81%"
+        ],
+        [
+          "Text screenshot (PNG)",
+          "332 KB",
+          "206 KB",
+          "38%"
+        ]
+      ],
+      "notes": [
+        "WebP cut every file by more than a third with no change in resolution, and each photo took about 1.5–2.5 seconds. For a website, resize to the display width first, then convert, and the savings stack up."
+      ]
+    },
     faqs: [
       { q: "Does WebP keep PNG transparency?", a: "Yes. Transparent PNGs stay transparent as WebP." },
       { q: "Does it work on iPhone?", a: "Yes. If your browser can't create WebP itself, the tool uses its own built-in encoder automatically." },
-      { q: "How much smaller will my images be?", a: "It depends on the image, but savings of 25–35% over JPG are common at similar quality." },
+      { q: "How much smaller will my images be?", a: "It depends on the image. In our test, WebP versions of three phone photos were 37–49% smaller than the original camera JPGs at the same resolution." },
     ],
     related: ["/webp-to-jpg", "/compress-image-to-200kb", "/compress-jpg"],
   },
@@ -336,6 +566,36 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: two AVIF photos",
+      "intro": "We converted two full-resolution AVIF photos (made from phone photos):",
+      "columns": [
+        "Photo",
+        "AVIF",
+        "JPG",
+        "Resolution",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "968 KB",
+          "2.73 MB",
+          "3024×4032",
+          "0.8 s"
+        ],
+        [
+          "Galaxy S7 photo",
+          "579 KB",
+          "1.87 MB",
+          "4032×3024",
+          "0.7 s"
+        ]
+      ],
+      "notes": [
+        "The JPGs are about 3× bigger. AVIF is one of the most efficient image formats available, so this is expected. The JPG is what you need for apps and forms that don't accept AVIF yet. If size matters, run the JPG through a compress-to-KB tool afterwards."
+      ]
+    },
     faqs: [
       { q: "Will the JPG look the same?", a: "Yes. We keep the full resolution and save at high quality. The JPG will usually be larger than the AVIF." },
       { q: "What happens to transparency?", a: "Transparent areas become white, because JPG doesn't support transparency." },
@@ -380,6 +640,40 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three PDFs at 150 and 300 DPI",
+      "intro": "We turned three test PDFs into JPGs, one image per page:",
+      "columns": [
+        "PDF",
+        "Original",
+        "150 DPI",
+        "300 DPI"
+      ],
+      "rows": [
+        [
+          "Scanned contract, 8 pages",
+          "9.49 MB",
+          "8 JPGs · 3.11 MB · 1240×1753 · 7.5 s",
+          "8 JPGs · 8.88 MB · 2480×3507 · 9.2 s"
+        ],
+        [
+          "Report with photos, 9 pages",
+          "2.31 MB",
+          "9 JPGs · 2.60 MB · 4.9 s",
+          "9 JPGs · 8.16 MB · 6.7 s"
+        ],
+        [
+          "Text handbook, 19 pages",
+          "100 KB",
+          "19 JPGs · 7.71 MB · 3.4 s",
+          "—"
+        ]
+      ],
+      "notes": [
+        "150 DPI is sharp on screen and makes much smaller files. Choose 300 DPI for printing or zooming into fine detail.",
+        "Notice the text handbook: a 100 KB PDF became 7.71 MB of JPGs. Text stored as text is tiny; as pictures it isn't. Only convert text documents to images when you really need images."
+      ]
+    },
     faqs: [
       { q: "How do I get all pages at once?", a: "After converting, click Download all to get every page in one ZIP file. You can also download pages individually." },
       { q: "Can I convert a password-protected PDF?", a: "Not directly. Open it in a PDF reader, remove the password, then convert it here." },
@@ -427,6 +721,31 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos into one PDF",
+      "intro": "We combined three phone photos (11.64 MB together) into a single PDF:",
+      "columns": [
+        "Page size",
+        "PDF size",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Fit to image",
+          "11.64 MB",
+          "0.1 s"
+        ],
+        [
+          "A4",
+          "11.64 MB",
+          "0.1 s"
+        ]
+      ],
+      "notes": [
+        "The PDF is the same size as the photos combined, because the JPGs are placed into the PDF untouched, with no quality loss. That makes it instant, but it also means a PDF of phone photos is big.",
+        "If the PDF needs to be small, compress the photos first (Balanced brought these to 78–153 KB each), or run the finished PDF through Compress PDF to 1 MB."
+      ]
+    },
     faqs: [
       { q: "Can I change the page order?", a: "Yes. Use the up and down arrows next to each image before creating the PDF." },
       { q: "Does it work with iPhone HEIC photos?", a: "Yes. HEIC photos are converted automatically as they're added to the PDF." },
@@ -469,6 +788,41 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three PDFs into one",
+      "intro": "We merged a 19-page text PDF, a 9-page photo report and an 8-page scan:",
+      "columns": [
+        "Input",
+        "Pages",
+        "Size"
+      ],
+      "rows": [
+        [
+          "Text handbook",
+          "19",
+          "100 KB"
+        ],
+        [
+          "Report with photos",
+          "9",
+          "2.31 MB"
+        ],
+        [
+          "Scanned contract",
+          "8",
+          "9.49 MB"
+        ],
+        [
+          "Merged result",
+          "36",
+          "11.84 MB"
+        ]
+      ],
+      "notes": [
+        "The merge took 0.2 seconds, and the result is slightly smaller than the three files added together, since shared structure is stored once. Pages, text and images are copied exactly, with nothing re-compressed.",
+        "Need it under a portal limit? Compress the merged file afterwards with Compress PDF to 2 MB or 1 MB."
+      ]
+    },
     faqs: [
       { q: "Can I choose the order?", a: "Yes. Use the arrows to move each file up or down before merging." },
       { q: "Can I merge password-protected PDFs?", a: "Remove the password in a PDF reader first; locked files can't be opened here." },
@@ -510,6 +864,32 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: splitting two PDFs",
+      "intro": "Results from splitting our test files:",
+      "columns": [
+        "Split",
+        "Result"
+      ],
+      "rows": [
+        [
+          "8-page scan, one file per page",
+          "8 PDFs, 9.49 MB in total (about 1.2 MB each), 0.1 s"
+        ],
+        [
+          "8-page scan, ranges “1-2, 5”",
+          "2 PDFs, 3.53 MB in total"
+        ],
+        [
+          "9-page photo report, one file per page",
+          "9 PDFs: text-only pages about 18.9 KB, photo pages 344 KB–942 KB"
+        ]
+      ],
+      "notes": [
+        "Each page keeps exactly its own content: text stays selectable and images aren't re-compressed. Each file contains only the images on its own pages, so a text page from the photo report is just 19 KB.",
+        "If a single page is still over a portal's limit, compress that page with Compress PDF to 500 KB or 200 KB."
+      ]
+    },
     faqs: [
       { q: "Will text still be selectable?", a: "Yes. Pages are copied directly, not turned into images." },
       { q: "Can I extract a single page?", a: "Yes — choose Custom ranges and type the page number, for example 4." },
@@ -534,7 +914,7 @@ export const converterPages: ToolPageConfig[] = [
       {
         heading: "Making a face photo look good at 30KB",
         paragraphs: [
-          "At 30KB a typical portrait comes out around 450–700 pixels on its longest side — plenty for the small preview box on an application form. The tool shrinks the dimensions first, so the face stays clean instead of turning blocky.",
+          "At 30KB a full phone photo comes out about 340×450 pixels — plenty for the small preview box on an application form. The tool shrinks the dimensions first, so the face stays clean instead of turning blocky.",
           "A plain white or light-blue background helps a lot: flat colour costs almost nothing to store, leaving more of the 30KB for your face.",
         ],
       },
@@ -553,6 +933,44 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos to 30 KB",
+      "intro": "We ran three real 12-megapixel phone photos through this page in Chrome on an ordinary laptop. Here's exactly what came out:",
+      "columns": [
+        "Photo",
+        "Original",
+        "Result",
+        "Dimensions",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "4.16 MB",
+          "29.3 KB",
+          "339×453",
+          "0.5 s"
+        ],
+        [
+          "iPhone 6 Plus photo",
+          "3.51 MB",
+          "29.6 KB",
+          "339×453",
+          "0.3 s"
+        ],
+        [
+          "Galaxy S7 Edge photo",
+          "3.97 MB",
+          "28.7 KB",
+          "453×339",
+          "0.5 s"
+        ]
+      ],
+      "notes": [
+        "At 30 KB, a full phone photo becomes about 340×450 pixels, enough for a sharp face in an application preview box. 25 KB gave 310×413.",
+        "Two results were just over 30,000 bytes (but under 30 KB counted as 1,024 bytes per KB). For forms that count 1,000 bytes, type 28 as a custom size."
+      ]
+    },
     faqs: [
       { q: "Can I compress a photo from 5MB to 30KB?", a: "Yes. Large phone photos are resized and recompressed in one step, usually in under a second." },
       { q: "The form says under 30KB but rejects my file — why?", a: "Some sites count 1KB as 1,000 bytes. Choose 25KB or type a custom value like 28 to leave a margin." },
@@ -584,7 +1002,7 @@ export const converterPages: ToolPageConfig[] = [
       {
         heading: "How sharp is a 500KB photo?",
         paragraphs: [
-          "At 500KB most photos keep around 2,000–2,800 pixels on the longest side — larger than most laptop screens and good enough for a small print. Often the only change you'll notice is the file size.",
+          "At 500KB a full phone photo keeps about 1,390×1,850 pixels, sharp on a full HD screen and fine for a small print. Often the only change you'll notice is the file size.",
         ],
       },
       {
@@ -594,6 +1012,44 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: three phone photos to 500 KB",
+      "intro": "We ran three real 12-megapixel phone photos through this page in Chrome on an ordinary laptop. Here's exactly what came out:",
+      "columns": [
+        "Photo",
+        "Original",
+        "Result",
+        "Dimensions",
+        "Time"
+      ],
+      "rows": [
+        [
+          "Pixel 2 photo",
+          "4.16 MB",
+          "498 KB",
+          "1386×1848",
+          "1.2 s"
+        ],
+        [
+          "iPhone 6 Plus photo",
+          "3.51 MB",
+          "497 KB",
+          "1386×1848",
+          "1.5 s"
+        ],
+        [
+          "Galaxy S7 Edge photo",
+          "3.97 MB",
+          "448 KB",
+          "1848×1386",
+          "0.5 s"
+        ]
+      ],
+      "notes": [
+        "500 KB keeps about 1390×1850 pixels, sharp on a full HD screen. 400 KB gave 1239×1652 and 800 KB gave 1753×2337.",
+        "The Galaxy photo, a night scene with lots of dark sky, came in well under the limit at the same dimensions. Simple scenes need fewer bytes."
+      ]
+    },
     faqs: [
       { q: "Will compressing to 500KB lower the quality?", a: "Barely. At this size the tool can keep high JPG quality and most of the original resolution." },
       { q: "My photo is already under 500KB — what happens?", a: "It's re-saved as a clean JPG at the best quality that stays under the limit." },
@@ -635,6 +1091,40 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: how far an 8-page scan can go",
+      "intro": "We pushed the same 9.49 MB, 8-page scanned contract to smaller and smaller targets:",
+      "columns": [
+        "Target",
+        "Result",
+        "Per page",
+        "Readability"
+      ],
+      "rows": [
+        [
+          "200 KB",
+          "167 KB",
+          "~21 KB",
+          "Readable on screen, visibly fuzzy"
+        ],
+        [
+          "150 KB",
+          "140 KB",
+          "~18 KB",
+          "Hard work for small print"
+        ],
+        [
+          "100 KB",
+          "Couldn't reach (smallest: 140 KB)",
+          "—",
+          "The tool stops before text becomes unreadable"
+        ]
+      ],
+      "notes": [
+        "The tool has a floor: it won't shrink pages below the resolution where text stops being legible, and tells you when a target can't be met. For a scan this long, 200 KB is about the practical minimum.",
+        "Our 9-page report with photos reached 169 KB at a 200 KB target. With fewer pages, each page gets more of the budget, so a 1–2 page scan under 200 KB stays clear."
+      ]
+    },
     faqs: [
       { q: "Can a 10-page scanned PDF fit in 200KB?", a: "Usually only at low resolution. Split it or check whether the portal accepts a larger file — readability matters to whoever reviews it." },
       { q: "Will my stamp and signature be visible?", a: "On a single page at 200KB, yes." },
@@ -675,6 +1165,40 @@ export const converterPages: ToolPageConfig[] = [
         ],
       },
     ],
+    test: {
+      "heading": "We tested it: PDFs to 2 MB and 3 MB",
+      "intro": "Results from our three test PDFs:",
+      "columns": [
+        "PDF",
+        "Original",
+        "2 MB target",
+        "3 MB target"
+      ],
+      "rows": [
+        [
+          "Text handbook, 19 pages",
+          "100 KB",
+          "Unchanged (already under)",
+          "Unchanged"
+        ],
+        [
+          "Report with photos, 9 pages",
+          "2.31 MB",
+          "1.31 MB",
+          "Unchanged (already under)"
+        ],
+        [
+          "Scanned contract, 8 pages",
+          "9.49 MB",
+          "1.31 MB",
+          "1.49 MB"
+        ]
+      ],
+      "notes": [
+        "At 2 MB, the 8-page scan kept about 170 KB per page: crisp on screen and fine for printing. When a file already fits, it's returned untouched, keeping selectable text and full quality.",
+        "The report had to be re-rendered to fit under 2 MB, so its text is no longer selectable. If a recruiter's system needs searchable text, re-export the original document with smaller pictures instead."
+      ]
+    },
     faqs: [
       { q: "Will compressing to 2MB affect my CV's formatting?", a: "No. Layout, fonts and links are kept when lossless compression is enough, which it usually is at 2MB." },
       { q: "My merged PDF is 8MB — can it reach 2MB?", a: "Usually, if most of the size is scanned pages. Text-heavy files may need splitting instead." },

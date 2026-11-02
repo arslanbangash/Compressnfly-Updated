@@ -192,7 +192,7 @@ for (const t of toolPages) {
     type: "tool",
     name: t.name,
     priority: 0.9,
-    dateModified: "2026-10-14",
+    dateModified: "2026-11-02",
   };
 }
 

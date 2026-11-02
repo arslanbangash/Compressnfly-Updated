@@ -30,7 +30,7 @@ const CompressFilesOnlineFree = () => {
           <tbody>
             <tr><td>Phone photo (JPG, 12 MP)</td><td>4.16 MB</td><td>305 KB</td><td>Web Optimized</td></tr>
             <tr><td>Same photo, exact size</td><td>4.16 MB</td><td>49 KB</td><td>To an exact size: 50 KB</td></tr>
-            <tr><td>Photo saved as PNG</td><td>229 KB</td><td>78 KB</td><td>Balanced</td></tr>
+            <tr><td>Retina screenshot (PNG, 2880×1800)</td><td>488 KB</td><td>113 KB</td><td>Balanced (1280×800)</td></tr>
             <tr><td>Scanned PDF, 8 pages</td><td>9.49 MB</td><td>804 KB</td><td>Small Size</td></tr>
             <tr><td>Text PDF, 19 pages</td><td>100 KB</td><td>64 KB</td><td>Any level (lossless)</td></tr>
             <tr><td>Word document with photos</td><td>9.46 MB</td><td>384 KB</td><td>Balanced</td></tr>

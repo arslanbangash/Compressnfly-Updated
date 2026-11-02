@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { Link } from "react-router-dom";
 import { ShieldCheck } from "lucide-react";
 import Header from "@/components/Header";
@@ -34,18 +35,47 @@ const ToolPage = ({ config }: { config: ToolPageConfig }) => {
 
       <article className="container mx-auto px-4 pb-8 max-w-3xl">
         <div className="prose md:prose-lg max-w-none dark:prose-invert">
-          {config.sections.map((section) => (
-            <section key={section.heading}>
-              <h2>{section.heading}</h2>
-              {section.paragraphs?.map((p, i) => <p key={i}>{p}</p>)}
-              {section.list && (
-                <ul>
-                  {section.list.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
+          {config.sections.map((section, index) => (
+            <Fragment key={section.heading}>
+              <section>
+                <h2>{section.heading}</h2>
+                {section.paragraphs?.map((p, i) => <p key={i}>{p}</p>)}
+                {section.list && (
+                  <ul>
+                    {section.list.map((item, i) => (
+                      <li key={i}>{item}</li>
+                    ))}
+                  </ul>
+                )}
+              </section>
+              {index === 0 && config.test && (
+                <section>
+                  <h2>{config.test.heading}</h2>
+                  <p>{config.test.intro}</p>
+                  <div className="overflow-x-auto">
+                    <table>
+                      <thead>
+                        <tr>
+                          {config.test.columns.map((c) => (
+                            <th key={c}>{c}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {config.test.rows.map((row, r) => (
+                          <tr key={r}>
+                            {row.map((cell, c) => (
+                              <td key={c}>{cell}</td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  {config.test.notes?.map((n, i) => <p key={i}>{n}</p>)}
+                </section>
               )}
-            </section>
+            </Fragment>
           ))}
 
           <h2>Frequently asked questions</h2>
