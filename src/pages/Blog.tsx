@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 
 const Blog = () => {
   const blogPosts = [
+    { id: 12, title: "How to Get a Photo Under 20 KB, 50 KB or 100 KB for Online Forms", excerpt: "What each size limit looks like on a real phone photo, how to keep tiny photos sharp, and fixes for the upload errors forms throw at you.", date: "2026-11-02", category: "Tutorial", readTime: "7 min read", link: "/blog/photo-size-for-online-forms" },
+    { id: 13, title: "HEIC vs JPG: Why Your iPhone Photos Won't Open (and 4 Ways to Fix It)", excerpt: "What HEIC is, where it breaks, and what happened when we converted real iPhone photos to JPG and PNG.", date: "2026-11-02", category: "Guide", readTime: "6 min read", link: "/blog/heic-vs-jpg" },
         { id: 11, title: "How to Compress a PDF for Email — Fit Gmail's 25MB Limit", excerpt: "PDF too big to email? Learn why attachments bounce even under 25MB, and compress yours to fit Gmail and Outlook in seconds — free, no upload.", date: "2026-08-30", category: "Tutorial", readTime: "6 min read", link: "/blog/compress-pdf-for-email" },
     {
       id: 1,
@@ -15,24 +17,8 @@ const Blog = () => {
       readTime: "8 min read",
       link: "/blog/pdf-compression-guide"
     },
-    {
-      id: 2,
-      title: "The Ultimate Guide to File Compression",
-      excerpt: "Learn everything you need to know about compressing files efficiently while maintaining quality.",
-      date: "2026-02-15",
-      category: "Tutorial",
-      readTime: "5 min read",
-      link: "/blog/file-compression-guide"
-    },
-    {
-      id: 3,
-      title: "Why File Size Matters in 2026",
-      excerpt: "Explore the importance of optimized file sizes for web performance and user experience.",
-      date: "2026-03-10",
-      category: "Insights",
-      readTime: "3 min read",
-      link: "/blog/file-size-importance"
-    },
+    { id: 2, title: "File Compression Explained: What Shrinks, What Doesn't, and Why", excerpt: "A CSV shrank 84%. A ZIP of photos shrank 0.2%. Lossless vs lossy compression, tested on real files, with the right method for each file type.", date: "2026-11-02", category: "Guide", readTime: "7 min read", link: "/blog/file-compression-guide" },
+    { id: 3, title: "File Size Limits for Email, WhatsApp and Upload Forms", excerpt: "Gmail, Outlook, Yahoo and WhatsApp limits, why a 20 MB file can bounce from a 20 MB inbox, and the target sizes that work.", date: "2026-11-02", category: "Guide", readTime: "7 min read", link: "/blog/file-size-importance" },
     {
       id: 4,
       title: "Video Compression Best Practices",
@@ -51,8 +37,8 @@ const Blog = () => {
       readTime: "4 min read",
       link: "/blog/audio-compression-guide"
     },
-    { id: 6, title: "How to Compress a PDF Without Losing Quality in 2026 — The Complete Guide", excerpt: "Your PDF is 45MB and needs to be under 2MB. Learn exactly why PDFs become enormous and how to compress any PDF by up to 92% in 30 seconds — free, private, no uploads.", date: "2026-05-05", category: "Tutorial", readTime: "10 min read", link: "/blog/compress-pdf-without-losing-quality" },
-    { id: 7, title: "How to Compress Images Online Without Losing Quality in 2026", excerpt: "A single phone photo is 8–15MB. Discover how to reduce any image by up to 92% while keeping it visually identical — JPG, PNG, WebP, and more, all in your browser.", date: "2026-05-05", category: "Tutorial", readTime: "11 min read", link: "/blog/compress-images-online" },
+    { id: 6, title: "How to Compress a PDF Without Losing Quality (We Tested 3 Real PDFs)", excerpt: "A text PDF, a photo report and a scanned contract, compressed and measured. What stays sharp, and how small a scan can get and still be readable.", date: "2026-11-02", category: "Tutorial", readTime: "8 min read", link: "/blog/compress-pdf-without-losing-quality" },
+    { id: 7, title: "How to Compress Images Without Losing Quality: Real Results From 3 Phone Photos", excerpt: "Three phone photos, every setting, exact sizes and dimensions — and which size to use for email, websites, printing and forms.", date: "2026-11-02", category: "Tutorial", readTime: "8 min read", link: "/blog/compress-images-online" },
     { id: 8, title: "How to Reduce Word Document File Size — 7 Methods That Actually Work", excerpt: "A 10-page Word document should be 100KB, not 80MB. Learn the 7 methods to find and fix the hidden bloat — including the 30-second fix that requires no software at all.", date: "2026-05-05", category: "Tutorial", readTime: "9 min read", link: "/blog/reduce-word-document-file-size" },
     { id: 9, title: "Why Is My File So Large? (And How to Fix It in 30 Seconds)", excerpt: "Your document looks normal but is 75MB. Your photo is 14MB. Your PDF won't attach. This guide exposes the hidden causes and gives you the instant fix for every file type.", date: "2026-05-05", category: "Guide", readTime: "8 min read", link: "/blog/why-is-my-file-so-large" },
     { id: 10, title: "Compress Files Online Free — No Signup, No Upload, No Limits (2026)", excerpt: "Compress PDFs, images, Word docs, Excel files and ZIPs — free, no account, no file uploads to any server, and no software to install.", date: "2026-05-05", category: "Guide", readTime: "10 min read", link: "/blog/compress-files-online-free" },

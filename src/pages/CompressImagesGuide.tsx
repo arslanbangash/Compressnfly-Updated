@@ -1,76 +1,259 @@
+import { Link } from 'react-router-dom';
 import BlogPost from '@/components/BlogPost';
 import Header from '@/components/Header';
 
 const CompressImagesGuide = () => {
   const content = (
-    <div className="space-y-8">
-      <div className="bg-primary/5 border border-primary/10 rounded-lg p-6">
-        <p className="text-lg font-medium">A single photo from a modern smartphone is 8–15MB. Upload 10 to your website and visitors wait 20 seconds for the page to load. Try to email them and the attachment gets rejected. The fix takes under 30 seconds.</p>
+    <>
+      <p>
+        Every image compressor promises "no quality loss". The honest version is this: a phone photo holds far more
+        detail than any screen can show, and most of the size you remove is detail nobody would ever see. Go too far,
+        though, and the photo does start to suffer. The useful question is where that line sits.
+      </p>
+      <p>
+        So we tested it. We took three real photos straight off three different phones and ran each one through every
+        setting in Compressnfly's <Link to="/compress-jpg">image compressor</Link>. Below are the exact results: sizes,
+        pixel dimensions, and what we'd use each setting for.
+      </p>
+
+      <div className="not-prose my-8 rounded-lg border border-primary/20 bg-primary/5 p-5">
+        <p className="font-semibold text-foreground mb-2">The short answer</p>
+        <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
+          <li>A 3.5–4.2 MB phone photo shrank to about 1 MB with no visible change, even at full-screen size.</li>
+          <li>At 200–350 KB it still looked sharp on a laptop or phone screen. That's the sweet spot for sharing.</li>
+          <li>Most of the saving comes from reducing pixel dimensions, not from cranking up compression.</li>
+        </ul>
       </div>
-      <h2 className="text-2xl font-bold">Why Are Image Files So Large?</h2>
-      <h3 className="text-xl font-semibold">Modern Cameras Shoot at Extreme Resolutions</h3>
-      <p>Smartphones shoot at 12–200 megapixels. At 12MP (4032x3024 pixels), a single photo is 4–8MB. A laptop screen displays at 1920x1080 — your photo has 4x more pixels than any screen can show. All that excess is invisible but very real in file size.</p>
-      <h3 className="text-xl font-semibold">PNG Files Are Not Compressed by Default</h3>
-      <p>PNG stores every pixel at full quality. A PNG screenshot can be 3–10MB when a properly compressed version would be under 500KB with no visible difference.</p>
-      <h3 className="text-xl font-semibold">Retina Screenshots Are Double-Sized</h3>
-      <p>Screenshots on Retina displays are captured at 2x resolution. A 1200x800 screenshot on screen is saved at 2400x1600 — 4x the expected file size.</p>
-      <h2 className="text-2xl font-bold">How to Compress Images Using CompressNFly</h2>
-      <p>CompressNFly supports JPG, PNG, WebP, GIF, BMP and all major image formats. Everything runs in your browser — your photos never leave your device.</p>
-      <ol className="list-decimal list-inside space-y-3 pl-4">
-        <li><strong>Go to compressnfly.com</strong></li>
-        <li><strong>Drag your images</strong> into the upload area — multiple files supported</li>
-        <li><strong>Choose compression level</strong> — Balanced recommended</li>
-        <li><strong>Click Compress File</strong> — results appear instantly</li>
-        <li><strong>Download</strong> your compressed images</li>
-      </ol>
-      <h2 className="text-2xl font-bold">Compression Levels</h2>
-      <div className="space-y-3">
-        <div className="border rounded-lg p-4"><h4 className="font-semibold">High Quality</h4><p className="text-sm text-muted-foreground">Product photography, portfolios, real estate — ~60–70% reduction. Example: 8MB → 2.4MB</p></div>
-        <div className="border rounded-lg p-4"><h4 className="font-semibold">Web Optimized</h4><p className="text-sm text-muted-foreground">Hero images, blog posts, website banners — ~72–80% reduction. Example: 8MB → 1.6MB</p></div>
-        <div className="border border-primary/30 bg-primary/5 rounded-lg p-4"><h4 className="font-semibold">Balanced ⭐ Recommended</h4><p className="text-sm text-muted-foreground">Email, social media, everyday sharing — ~80–88% reduction. Example: 8MB → 960KB</p></div>
-        <div className="border rounded-lg p-4"><h4 className="font-semibold">Small Size</h4><p className="text-sm text-muted-foreground">Thumbnails, strict upload limits, bulk compression — ~88–94% reduction. Example: 8MB → 480KB</p></div>
-      </div>
-      <h2 className="text-2xl font-bold">Real-World Results</h2>
+
+      <h2>Why phone photos are so big</h2>
+      <p>
+        Our three test photos came from a Google Pixel 2, an iPhone 6 Plus and a Samsung Galaxy S7 Edge. Each is a
+        12-megapixel image, roughly 3000 × 4000 pixels, and they weighed 4.16 MB, 3.51 MB and 3.97 MB.
+      </p>
+      <p>
+        Now compare that with where photos are usually viewed. A full HD laptop screen is 1920 × 1080, about 2
+        megapixels. A phone screen shows even fewer pixels at a time, unless you zoom in. So a 12 MP photo shown
+        full-screen is already being scaled down to a sixth of its pixels or less. That extra detail matters for
+        printing large or cropping tightly, and for not much else.
+      </p>
+      <p>
+        There's a second, hidden passenger: <strong>metadata</strong>. The Pixel photo carried its GPS coordinates,
+        recording exactly where it was taken. Compressnfly's output files don't include that metadata, which is a
+        small privacy win when you share photos publicly.
+      </p>
+
+      <h2>Our test: three phones, four settings</h2>
       <div className="overflow-x-auto">
-        <table className="w-full border-collapse text-sm">
-          <thead><tr className="border-b"><th className="text-left py-3 pr-4 font-semibold">Image Type</th><th className="text-left py-3 pr-4 font-semibold">Original</th><th className="text-left py-3 pr-4 font-semibold">Compressed</th><th className="text-left py-3 font-semibold">Reduction</th></tr></thead>
-          <tbody className="divide-y">
-            <tr><td className="py-3 pr-4">iPhone photo (12MP JPG)</td><td className="py-3 pr-4">9.2 MB</td><td className="py-3 pr-4">1.0 MB</td><td className="py-3 text-green-600 font-semibold">89%</td></tr>
-            <tr><td className="py-3 pr-4">DSLR product photo</td><td className="py-3 pr-4">14 MB</td><td className="py-3 pr-4">1.6 MB</td><td className="py-3 text-green-600 font-semibold">89%</td></tr>
-            <tr><td className="py-3 pr-4">MacBook Retina screenshot</td><td className="py-3 pr-4">4.5 MB</td><td className="py-3 pr-4">750 KB</td><td className="py-3 text-green-600 font-semibold">83%</td></tr>
-            <tr><td className="py-3 pr-4">Website banner</td><td className="py-3 pr-4">3.8 MB</td><td className="py-3 pr-4">520 KB</td><td className="py-3 text-green-600 font-semibold">86%</td></tr>
+        <table>
+          <thead>
+            <tr>
+              <th>Setting</th>
+              <th>Pixel 2 (4.16 MB)</th>
+              <th>iPhone 6 Plus (3.51 MB)</th>
+              <th>Galaxy S7 Edge (3.97 MB)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>High Quality</td>
+              <td>1.11 MB · 2599×3465</td>
+              <td>1.06 MB · 2208×2945</td>
+              <td>986 KB · 3648×2736</td>
+            </tr>
+            <tr>
+              <td>Web Optimized</td>
+              <td>305 KB · 1368×1824</td>
+              <td>353 KB · 1299×1732</td>
+              <td>214 KB · 1920×1440</td>
+            </tr>
+            <tr>
+              <td>Balanced</td>
+              <td>117 KB · 912×1216</td>
+              <td>153 KB · 866×1155</td>
+              <td>78 KB · 1280×960</td>
+            </tr>
+            <tr>
+              <td>Small Size</td>
+              <td>45 KB · 600×800</td>
+              <td>50 KB · 541×722</td>
+              <td>25 KB · 800×600</td>
+            </tr>
           </tbody>
         </table>
       </div>
-      <h2 className="text-2xl font-bold">Privacy — Your Photos Never Leave Your Device</h2>
-      <p>CompressNFly processes every image entirely in your browser using WebAssembly technology. Your photos never leave your device — not when selected, not during compression, not at any point. Critical for personal photos, medical images, and sensitive business imagery.</p>
-      <h2 className="text-2xl font-bold">Best Practices</h2>
-      <ul className="list-disc list-inside space-y-2 pl-4">
-        <li><strong>Always keep originals</strong> — compress copies, never originals</li>
-        <li><strong>Resize before compressing</strong> — if an image displays at 800px, resize to 800px first then compress</li>
-        <li><strong>Never compress already-compressed images</strong> — always start from the original</li>
-        <li><strong>Compress before inserting into documents</strong> — keeps Word, PDF, and PowerPoint files small</li>
+      <p>
+        Each photo took between half a second and 1.6 seconds on a regular laptop. Two things stand out. First, even
+        <em> High Quality</em> cut every photo by 70–76%. Second, the same setting gives different results for
+        different photos. The Samsung shot, a building at night with a lot of plain dark sky, compressed far more
+        easily than the iPhone close-up of fir needles. Busy detail like leaves, gravel and fabric costs more bytes than
+        smooth sky, snow or shadow.
+      </p>
+
+      <h2>Which setting to use</h2>
+      <ul>
+        <li>
+          <strong>High Quality (~1 MB):</strong> keeping or printing. Dimensions stay large enough for sharp prints up
+          to about 8×10 inches, and you can't tell it apart from the original on screen.
+        </li>
+        <li>
+          <strong>Web Optimized (~200–350 KB):</strong> sharing, social posts, websites and blogs. Still sharp on a
+          laptop or phone screen, and about 13× lighter than the original.
+        </li>
+        <li>
+          <strong>Balanced (~80–150 KB):</strong> email attachments, Word documents and presentations, where the photo
+          is shown smaller than full-screen.
+        </li>
+        <li>
+          <strong>Small Size (~25–50 KB):</strong> thumbnails, profile pictures and upload forms with strict limits.
+          Fine at small sizes, soft if you blow it up.
+        </li>
       </ul>
-      <h2 className="text-2xl font-bold">Frequently Asked Questions</h2>
-      <div className="space-y-4">
-        {[
-          { q: "What image formats are supported?", a: "JPG, JPEG, PNG, WebP, GIF, BMP, and TIFF — all major image formats." },
-          { q: "Will compression change image dimensions?", a: "No. Compression reduces file size but never changes pixel dimensions." },
-          { q: "Can I compress multiple images at once?", a: "Yes. Upload multiple images and download them all compressed in one batch." },
-          { q: "How do I compress an image to under 200KB?", a: "Start with Balanced compression. If still above 200KB, try Small Size." },
-        ].map((faq, i) => (
-          <div key={i} className="bg-muted/30 rounded-lg p-4">
-            <p className="font-semibold mb-1">{faq.q}</p>
-            <p className="text-muted-foreground text-sm">{faq.a}</p>
-          </div>
-        ))}
+
+      <h2>When you need an exact size</h2>
+      <p>
+        Job portals and government forms don't care about "quality levels". They say "under 50 KB" and reject
+        anything bigger. For that, use <em>To an exact size</em> mode, which keeps resizing and re-compressing until the
+        file fits. Here's what happened to the Pixel photo:
+      </p>
+      <div className="overflow-x-auto">
+        <table>
+          <thead>
+            <tr>
+              <th>Target</th>
+              <th>Result</th>
+              <th>Dimensions</th>
+              <th>Good for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>20 KB</td>
+              <td>20 KB</td>
+              <td>277×370</td>
+              <td>Form photos, ID-style pictures</td>
+            </tr>
+            <tr>
+              <td>50 KB</td>
+              <td>49 KB</td>
+              <td>438×584</td>
+              <td>Application photos, avatars</td>
+            </tr>
+            <tr>
+              <td>100 KB</td>
+              <td>97 KB</td>
+              <td>620×826</td>
+              <td>Small web images, documents</td>
+            </tr>
+            <tr>
+              <td>200 KB</td>
+              <td>196 KB</td>
+              <td>876×1168</td>
+              <td>Email, listings</td>
+            </tr>
+            <tr>
+              <td>500 KB</td>
+              <td>498 KB</td>
+              <td>1386×1848</td>
+              <td>Websites, sharing</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </div>
+      <p>
+        The iPhone and Samsung photos landed on almost exactly the same dimensions at each target, so the table works
+        as a general guide for 12 MP photos. Even the 20 KB version was perfectly recognisable at the size a form would
+        display it. There are ready-made pages for the common limits:{' '}
+        <Link to="/compress-image-to-20kb">20 KB</Link>, <Link to="/compress-image-to-50kb">50 KB</Link>,{' '}
+        <Link to="/compress-image-to-100kb">100 KB</Link> and <Link to="/compress-image-to-200kb">200 KB</Link>. Our
+        guide to <Link to="/blog/photo-size-for-online-forms">photos for online forms</Link> covers the tricks that make
+        tiny files look better.
+      </p>
+
+      <h2>JPG, PNG or WebP?</h2>
+      <p>The format matters as much as the setting:</p>
+      <ul>
+        <li>
+          <strong>JPG</strong> is built for photos. It's what every phone and every upload form understands, so it's
+          the safe choice.
+        </li>
+        <li>
+          <strong>PNG</strong> is lossless and suits screenshots, logos and anything with sharp edges or transparency.
+          For photos it's a poor fit: our 2400×1600 PNG photo was 229 KB, and simply{' '}
+          <Link to="/png-to-jpg">converting it to JPG</Link> made it 63 KB at full size. Compressing it as PNG with
+          <em> Balanced</em> got it to 78 KB, but only by shrinking it to 1280×853.
+        </li>
+        <li>
+          <strong>WebP</strong> makes smaller files than JPG at the same quality and works in all modern browsers, which
+          makes it great for websites. Some upload forms and older apps still reject it, so{' '}
+          <Link to="/webp-to-jpg">convert WebP to JPG</Link> when a form complains.
+        </li>
+      </ul>
+      <p>
+        One warning about PNG to JPG: JPG has no transparency. Transparent areas become white, which is fine for photos
+        but not for a logo you want to place on a coloured background.
+      </p>
+
+      <h2>Mistakes that make photos look worse</h2>
+      <ul>
+        <li>
+          <strong>Compressing the same photo again and again.</strong> Every JPG save loses a little. Always go back to
+          the original rather than re-compressing a compressed copy.
+        </li>
+        <li>
+          <strong>Enlarging a small image.</strong> Making a 400-pixel photo bigger doesn't add detail. It just makes
+          the blur more obvious and the file larger.
+        </li>
+        <li>
+          <strong>Choosing quality over size when the limit is strict.</strong> For a 50 KB limit, a smaller image with
+          decent quality looks better than a big image squeezed to the point of blocky artifacts. The exact-size mode
+          makes that trade for you.
+        </li>
+        <li>
+          <strong>Forgetting to crop.</strong> If only the face matters, crop first. The pixels you keep get more of the
+          byte budget.
+        </li>
+      </ul>
+
+      <h2>iPhone photos (HEIC)</h2>
+      <p>
+        Recent iPhones save photos as HEIC rather than JPG. Many websites and Windows PCs can't open those, and most
+        browsers can't compress them directly either. Convert them first with the{' '}
+        <Link to="/heic-to-jpg">HEIC to JPG converter</Link>, then compress the JPG. Our{' '}
+        <Link to="/blog/heic-vs-jpg">HEIC vs JPG test</Link> explains why the JPG comes out bigger than the HEIC.
+      </p>
+
+      <h2>FAQ</h2>
+      <h3>Can you really compress an image without losing quality?</h3>
+      <p>
+        Without <em>visible</em> loss, yes. In our test, High Quality removed 70–76% of each file with no difference we
+        could see on screen. Without <em>any</em> loss, only lossless formats like PNG manage that, and the savings are
+        much smaller.
+      </p>
+      <h3>Are my photos uploaded?</h3>
+      <p>No. Compression runs in your browser, so photos stay on your device.</p>
+      <h3>Does compression remove location data?</h3>
+      <p>
+        Yes, in our tests the compressed files contained no EXIF metadata, including GPS location. Keep the original if
+        you need that information.
+      </p>
+      <h3>Can I compress several images at once?</h3>
+      <p>Yes. Drop in multiple files and download them individually or as a ZIP.</p>
+    </>
   );
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <BlogPost ctaHref="/compress-jpg" ctaLabel="Compress Your Images Now" title="How to Compress Images Online Without Losing Quality in 2026" content={content} category="Tutorial" readTime="11 min read" date="2026-05-05" author="CompressNFly Team" />
+      <BlogPost
+        ctaHref="/compress-jpg"
+        ctaLabel="Compress an image now"
+        title="How to Compress Images Without Losing Quality: Real Results From 3 Phone Photos"
+        content={content}
+        category="Tutorial"
+        readTime="8 min read"
+        date="2026-05-05"
+        updated="2026-11-02"
+        author="Compressnfly Team"
+      />
     </div>
   );
 };

@@ -221,6 +221,7 @@ async function compressPDFToTarget(file: File, targetBytes: number): Promise<Com
 
   // 1) Lossless clean-up first — keeps text selectable.
   let smallest: Uint8Array = original;
+  let smallestIsRaster = false;
   try {
     const doc = await PDFDocument.load(arrayBuffer, { ignoreEncryption: true });
     const saved = await doc.save({ useObjectStreams: true, addDefaultPage: false, updateFieldAppearances: false });
@@ -246,7 +247,10 @@ async function compressPDFToTarget(file: File, targetBytes: number): Promise<Com
     } catch {
       break; // password-protected or unreadable by pdf.js
     }
-    if (bytes.byteLength < smallest.byteLength) smallest = bytes;
+    if (bytes.byteLength < smallest.byteLength) {
+      smallest = bytes;
+      smallestIsRaster = true;
+    }
     const ratio = targetBytes / bytes.byteLength;
 
     if (bytes.byteLength <= targetBytes) {
@@ -268,7 +272,7 @@ async function compressPDFToTarget(file: File, targetBytes: number): Promise<Com
   }
 
   if (fitted) return finish(fitted, true, true);
-  return finish(smallest, false, smallest !== original);
+  return finish(smallest, false, smallestIsRaster);
 }
 
 // ─── Image: compress to an exact target size ─────────────────────────────────────

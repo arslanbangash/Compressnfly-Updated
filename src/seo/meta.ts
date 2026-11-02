@@ -38,6 +38,24 @@ export const pages: Record<string, PageMeta> = {
     priority: 0.8,
     dateModified: "2026-10-14",
   },
+  "/blog/heic-vs-jpg": {
+    title: "HEIC vs JPG: Why iPhone Photos Won't Open and How to Fix It",
+    description:
+      "What HEIC is, where it fails, and what happens when you convert real iPhone photos to JPG and PNG — plus 4 ways to stop HEIC causing problems.",
+    type: "article",
+    datePublished: "2026-11-02",
+    dateModified: "2026-11-02",
+    priority: 0.7,
+  },
+  "/blog/photo-size-for-online-forms": {
+    title: "How to Get a Photo Under 20 KB, 50 KB or 100 KB for Online Forms",
+    description:
+      "What each size limit looks like on a real phone photo, how to keep small photos sharp, signatures and document scans, and fixes for common upload errors.",
+    type: "article",
+    datePublished: "2026-11-02",
+    dateModified: "2026-11-02",
+    priority: 0.7,
+  },
   "/blog/compress-pdf-for-email": {
     title: "How to Compress a PDF for Email (Gmail 25MB, Outlook 20MB)",
     description:
@@ -48,21 +66,21 @@ export const pages: Record<string, PageMeta> = {
     priority: 0.7,
   },
   "/blog/compress-pdf-without-losing-quality": {
-    title: "How to Compress a PDF Without Losing Quality (2026 Guide)",
+    title: "How to Compress a PDF Without Losing Quality (Tested on 3 PDFs)",
     description:
-      "Why PDFs get huge and how to shrink one by up to 90% while keeping text sharp — free, private, and right in your browser.",
+      "We compressed a text PDF, a photo report and a scanned contract. See the real sizes, what stays sharp, and how small a scan can get and still be readable.",
     type: "article",
     datePublished: "2026-05-05",
-    dateModified: "2026-08-29",
+    dateModified: "2026-11-02",
     priority: 0.7,
   },
   "/blog/compress-images-online": {
-    title: "How to Compress Images Online Without Losing Quality",
+    title: "How to Compress Images Without Losing Quality (Real Tests)",
     description:
-      "Shrink phone photos and JPG, PNG or WebP images by up to 90% while keeping them visually identical — all in your browser, no upload.",
+      "Real results from three phone photos at every setting: file sizes, pixel dimensions, and which size to use for email, websites, printing and forms.",
     type: "article",
     datePublished: "2026-05-05",
-    dateModified: "2026-08-29",
+    dateModified: "2026-11-02",
     priority: 0.7,
   },
   "/blog/reduce-word-document-file-size": {
@@ -102,21 +120,21 @@ export const pages: Record<string, PageMeta> = {
     priority: 0.6,
   },
   "/blog/file-compression-guide": {
-    title: "The Ultimate Guide to File Compression",
+    title: "File Compression Explained: What Shrinks and What Doesn't",
     description:
-      "Everything you need to know about compressing files efficiently while keeping quality: lossy vs lossless, formats, and settings.",
+      "Why a CSV shrinks 84% but a ZIP of photos shrinks 0.2%. Lossless vs lossy compression, tested on real files, and the right method for each file type.",
     type: "article",
     datePublished: "2026-02-15",
-    dateModified: "2026-02-15",
+    dateModified: "2026-11-02",
     priority: 0.6,
   },
   "/blog/file-size-importance": {
-    title: "Why File Size Matters for Speed, Storage and Sharing",
+    title: "File Size Limits for Email, WhatsApp and Upload Forms",
     description:
-      "How optimized file sizes improve page speed, user experience, email delivery and storage costs — and where to start.",
+      "Gmail, Outlook, Yahoo and WhatsApp limits, why a 20 MB file can bounce, the 1,000 vs 1,024 KB trap, and target sizes that work.",
     type: "article",
     datePublished: "2026-03-10",
-    dateModified: "2026-03-10",
+    dateModified: "2026-11-02",
     priority: 0.5,
   },
   "/blog/video-compression-guide": {

@@ -10,12 +10,17 @@ interface BlogPostProps {
   readTime: string;
   date: string;
   author: string;
+  /** ISO date of the last substantial update, shown next to the publish date. */
+  updated?: string;
   /** Where the "Try it" button goes — the most relevant tool page. */
   ctaHref?: string;
   ctaLabel?: string;
 }
 
-const BlogPost = ({ title, content, category, readTime, date, author, ctaHref = '/', ctaLabel = 'Try Compressnfly Now' }: BlogPostProps) => {
+const formatDate = (iso: string) =>
+  new Date(iso + 'T12:00:00Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const BlogPost = ({ title, content, category, readTime, date, author, updated, ctaHref = '/', ctaLabel = 'Try Compressnfly Now' }: BlogPostProps) => {
   return (
     <article className="max-w-4xl mx-auto px-4 py-8">
       <div className="mb-8">
@@ -24,7 +29,7 @@ const BlogPost = ({ title, content, category, readTime, date, author, ctaHref = 
           Back to Blog
         </Link>
         
-        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground mb-4">
           <Badge variant="secondary" className="bg-primary/10 text-primary">
             {category}
           </Badge>
@@ -36,13 +41,13 @@ const BlogPost = ({ title, content, category, readTime, date, author, ctaHref = 
             <User className="w-4 h-4" />
             {author}
           </div>
-          <time dateTime={date}>
-            {new Date(date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric'
-            })}
-          </time>
+          {updated ? (
+            <span>
+              Updated <time dateTime={updated}>{formatDate(updated)}</time>
+            </span>
+          ) : (
+            <time dateTime={date}>{formatDate(date)}</time>
+          )}
         </div>
         
         <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6 leading-tight">
@@ -50,7 +55,7 @@ const BlogPost = ({ title, content, category, readTime, date, author, ctaHref = 
         </h1>
       </div>
       
-      <div className="prose prose-lg max-w-none dark:prose-invert">
+      <div className="prose prose-lg max-w-none dark:prose-invert prose-code:before:content-none prose-code:after:content-none">
         {content}
       </div>
       

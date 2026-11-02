@@ -18,6 +18,8 @@ import ReduceWordDocSize from "./pages/ReduceWordDocSize";
 import WhyFileSoLarge from "./pages/WhyFileSoLarge";
 import CompressFilesOnlineFree from "./pages/CompressFilesOnlineFree";
 import CompressPDFForEmail from "./pages/CompressPDFForEmail";
+import HeicVsJpg from "./pages/HeicVsJpg";
+import PhotoForOnlineForms from "./pages/PhotoForOnlineForms";
 import About from "./pages/About";
 import ContactPage from "./pages/ContactPage";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -48,6 +50,8 @@ const App = () => (
         <Route path="/blog/why-is-my-file-so-large" element={<WhyFileSoLarge />} />
         <Route path="/blog/compress-pdf-for-email" element={<CompressPDFForEmail />} />
         <Route path="/blog/compress-files-online-free" element={<CompressFilesOnlineFree />} />
+        <Route path="/blog/heic-vs-jpg" element={<HeicVsJpg />} />
+        <Route path="/blog/photo-size-for-online-forms" element={<PhotoForOnlineForms />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
